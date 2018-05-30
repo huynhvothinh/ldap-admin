@@ -1,7 +1,5 @@
 <?php
-include 'header-blank.php';
-include 'config.php';
-include 'utils.php';
+include 'header-blank.php'; 
 ?>
 
 <div class="container-fruid">

@@ -1,13 +1,11 @@
 <?php
-include 'header-blank.php';
-include 'config.php';
-include 'utils.php';
+include 'header-blank.php'; 
 ?>
 
 <div class="container-fruid">
     <?php
         $configs = $_SESSION['config']; 
-        $role = ldapGetRole($configs, getGet('ou'));       
+        $role = ldapGetRole($configs, getGet('cn'));  
     ?>    
     <?php if($role){ ?>
     <?php

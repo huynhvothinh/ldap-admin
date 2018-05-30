@@ -1,11 +1,22 @@
 <?php
-include 'header.php';
-include 'config.php';
-include 'utils.php';
+include 'header.php'; 
 ?>
 
 <div class="container-fruid">
     <h2>My account</h2>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Change password</a>
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
+            </li> 
+        </ul>
+    </nav>
     <?php
         $configs = $_SESSION['config']; 
         $user = ldapGetUser($configs, $configs['admin_username']);       

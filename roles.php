@@ -1,7 +1,5 @@
 <?php
-include 'header.php';
-include 'config.php';
-include 'utils.php';
+include 'header.php'; 
 ?>
 
 <div class="container-fruid">
@@ -14,7 +12,7 @@ include 'utils.php';
         <thead>
         <tr>
             <th style="width:30px">No.</th>
-            <th>ou</th> 
+            <th>Description</th> 
             <th>Role name</th> 
         </tr>
         </thead>
@@ -26,9 +24,9 @@ include 'utils.php';
     ?>
         <tr>
             <td><?php echo ($index + 1)?></td>
-            <td><?php echo $arr[$index]['ou'][0]?></td>
+            <td><?php echo $arr[$index]['description'][0]?></td>
             <td>
-                <a href="#" data-href="group-detail.php?ou=<?php echo $arr[$index]['ou'][0]?>" 
+                <a href="#" data-href="role-detail.php?cn=<?php echo $arr[$index]['cn'][0]?>" 
                     data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php echo $arr[$index]['cn'][0]?>
                 </a>

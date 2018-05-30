@@ -1,7 +1,5 @@
 <?php
-include 'header-blank.php';
-include 'config.php';
-include 'utils.php';
+include 'header-blank.php'; 
 ?>
 
 <div class="container-fruid">
@@ -13,7 +11,7 @@ include 'utils.php';
     <?php
         $arr = json_decode(json_encode($group), true); 
         $arrKeys = array_keys($arr); 
-        sort($arrKeys);
+        sort($arrKeys); 
     ?>
     <table class="table table-striped"> 
         <tbody>
