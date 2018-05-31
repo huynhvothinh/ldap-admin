@@ -1,6 +1,4 @@
 <?php
-require_once('vendor/autoload.php');
-
 // 
 function compareRole($a, $b) {
     return strcmp($a["cn"][0], $b["cn"][0]);

@@ -1,5 +1,4 @@
 <?php
-require_once('vendor/autoload.php');
 // 
 function compareGroup($a, $b) {
     return strcmp($a["sn"][0], $b["sn"][0]);

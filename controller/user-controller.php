@@ -1,5 +1,4 @@
 <?php
-require_once('vendor/autoload.php'); 
 // 
 function compareUser($a, $b) {
     return strcmp($a["uid"][0], $b["uid"][0]);

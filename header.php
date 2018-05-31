@@ -17,11 +17,7 @@
 ?>
 
 <?php 
-require_once('config.php');
-require_once('utils.php');
-require_once('controller/user-controller.php');
-require_once('controller/group-controller.php');
-require_once('controller/role-controller.php');
+require_once('include.php');
 ?>
 
 <!DOCTYPE html>
