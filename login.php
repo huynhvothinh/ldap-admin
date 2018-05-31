@@ -1,5 +1,14 @@
 <?php
 include 'header.php'; 
+
+include 'utils.php';
+$provider = new \Adldap\Connections\Provider($configs, 
+            new \Adldap\Connections\Ldap, 
+            new \Adldap\Schemas\OpenLDAP); 
+        $groups = $provider->search()
+            ->where([
+                'objectClass'=>'groupOfUniqueNames'
+            ])->get();
 ?>
 
 <?php
