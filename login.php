@@ -101,7 +101,7 @@ if(getPost('form_submitted') != NULL){
     </div> 
     <div class="form-group advanced_field">
       <label for="admin_account_prefix">Admin account prefix:</label>
-      <input type="text" class="form-control" name="admin_account_prefix" id="base_dn" value="<?php echo $configs['admin_account_prefix'];?>">
+      <input type="text" class="form-control" name="admin_account_prefix" id="admin_account_prefix" value="<?php echo $configs['admin_account_prefix'];?>">
     </div> 
     <div class="form-group advanced_field">
       <label for="admin_account_suffix">Admin account suffix:</label>
