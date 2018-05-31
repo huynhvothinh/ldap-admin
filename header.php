@@ -8,11 +8,11 @@
   if($file != 'login.php'){    
     // session
     session_start();
-    if(!$_SESSION["config"]){
-      // 
-      header("Location: login.php"); /* Redirect browser */
-      exit();
-    }
+    // if(!$_SESSION["config"]){
+    //   // 
+    //   header("Location: login.php"); /* Redirect browser */
+    //   exit();
+    // }
   }
 ?>
 
