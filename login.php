@@ -4,11 +4,12 @@ include 'header.php';
 $provider = new \Adldap\Connections\Provider($configs, 
             new \Adldap\Connections\Ldap, 
             new \Adldap\Schemas\OpenLDAP); 
-        $groups = $provider->search()
-            ->where([
-                'objectClass'=>'groupOfUniqueNames'
-            ])->get();
-        echo json_encode($groups);
+$groups = $provider->search()
+    ->where([
+        'objectClass'=>'organizationalPerson'
+    ])->get();
+echo json_encode($configs);
+echo json_encode($groups);
 ?>
 
 <?php
