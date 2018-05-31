@@ -8,6 +8,7 @@ $provider = new \Adldap\Connections\Provider($configs,
             ->where([
                 'objectClass'=>'groupOfUniqueNames'
             ])->get();
+        echo json_encode($groups);
 ?>
 
 <?php
