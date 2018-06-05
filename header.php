@@ -23,7 +23,7 @@ require_once('include.php');
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>LDAP Admin</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -40,16 +40,16 @@ require_once('include.php');
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="index.php">My Profile</a>
+        <a class="nav-link" href="index.php"><?php t_('My Profile');?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="users.php">Users</a>
+        <a class="nav-link" href="users.php"><?php t_('Users');?></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="groups.php">Groups</a>
+        <a class="nav-link" href="groups.php"><?php t_('Groups');?></a>
       </li> 
       <li class="nav-item">
-        <a class="nav-link" href="roles.php">Roles</a>
+        <a class="nav-link" href="roles.php"><?php t_('Roles');?></a>
       </li> 
     </ul>
   </nav> 

@@ -20,7 +20,7 @@ include 'header-blank.php';
         ?>
         <?php if(is_array($val)){?>
                 <tr>
-                    <td><strong><?php echo $arrKeys[$i];?></strong></td>
+                    <td><strong><?php t_( $arrKeys[$i]);?></strong></td>
                     <td><?php echo echoArr($val);?></td> 
                 </tr>   
             <?php } // end if?>

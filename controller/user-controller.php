@@ -1,4 +1,6 @@
 <?php
+//https://github.com/Adldap2/Adldap2/blob/v8.0/docs/models/user.md
+
 // 
 function compareUser($a, $b) {
     return strcmp($a["uid"][0], $b["uid"][0]);
@@ -14,6 +16,55 @@ function sortUsers($users){
 
     return $arr;
 } 
+// 
+function ldapGetUserModel($configs, $uid){    
+    try{
+        $provider = new \Adldap\Connections\Provider($configs, 
+            new \Adldap\Connections\Ldap, 
+            new \Adldap\Schemas\OpenLDAP); 
+        $ldapuser = $provider->search()
+            ->where([
+                'objectClass'=>'organizationalPerson',
+                'uid' => $uid 
+            ])->firstOrFail();
+        
+        if ($ldapuser instanceof \Adldap\Models\User) {
+            return $ldapuser;
+        }else{
+            return NULL;
+        }
+    }catch(Exception $e){
+        return NULL;
+    }
+}
+
+// https://github.com/Adldap2/Adldap2/issues/392
+function ldapChangePass($configs, $uid, $password){    
+    try{
+        $provider = new \Adldap\Connections\Provider($configs, 
+            new \Adldap\Connections\Ldap, 
+            new \Adldap\Schemas\OpenLDAP); 
+        $ldapuser = $provider->search()
+            ->where([
+                'objectClass'=>'organizationalPerson',
+                'uid' => $uid 
+            ])->firstOrFail();
+        
+        if ($ldapuser instanceof \Adldap\Models\User) {
+            $ldapUser["userPassword"] = "{MD5}" . base64_encode(pack('H*', md5($password)));
+            if(@$ldapUser->save()){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }catch(Exception $e){
+        return false;
+    }
+}
+
 // 
 function ldapGetUser($configs, $uid){
     try{
