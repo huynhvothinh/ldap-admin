@@ -1,5 +1,5 @@
 <?php
-include 'header.php'; 
+include '../../header.php'; 
 ?>
 
 <div class="container-fruid">
@@ -14,6 +14,7 @@ include 'header.php';
             <th style="width:30px">No.</th>
             <th>ou</th> 
             <th>Group name</th> 
+            <th></th> 
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,16 @@ include 'header.php';
                     <?php echo $arr[$index]['cn'][0]?>
                 </a>
             </td> 
+            <td>
+                <a href="#" data-href="group-detail.php?ou=<?php echo $arr[$index]['ou'][0]?>" 
+                    data-title="Group edit" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    Edit
+                </a> | 
+                <a href="#" data-href="group-detail.php?ou=<?php echo $arr[$index]['ou'][0]?>" 
+                    data-title="Group delete" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    Delete
+                </a>
+            </td> 
         </tr> 
     <?php
             }
@@ -41,9 +52,9 @@ include 'header.php';
 </div>
 
 <?php
-include 'popup.php';
+include '../../popup.php';
 ?>
 
 <?php
-include 'footer.php';
+include '../../footer.php';
 ?>

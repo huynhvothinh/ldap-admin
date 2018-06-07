@@ -1,17 +1,17 @@
 <?php
-include 'header-blank.php'; 
+include '../../header-blank.php'; 
 ?>
 
 <div class="container-fruid">
     <?php
         $configs = $_SESSION['config']; 
-        $role = ldapGetRole($configs, getGet('cn'));  
+        $group = ldapGetGroup($configs, getGet('ou'));       
     ?>    
-    <?php if($role){ ?>
+    <?php if($group){ ?>
     <?php
-        $arr = json_decode(json_encode($role), true); 
+        $arr = json_decode(json_encode($group), true); 
         $arrKeys = array_keys($arr); 
-        sort($arrKeys);
+        sort($arrKeys); 
     ?>
     <table class="table table-striped"> 
         <tbody>
@@ -31,5 +31,5 @@ include 'header-blank.php';
 </div>
 
 <?php
-include 'footer-blank.php';
+include '../../footer-blank.php';
 ?>

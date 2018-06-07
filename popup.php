@@ -12,7 +12,7 @@
       <!-- Modal Header -->
       <div class="modal-header">         
         <h2></h2><div class="loader"></div>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> 
+        <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button> 
       </div>
 
       <!-- Modal body -->
@@ -31,6 +31,10 @@
             jQuery('#group-detail-iframe').attr('src', url);
             jQuery('.modal-header h2').html(jQuery(this).attr('data-title'));
             jQuery('.loader').show();
-        })
+        });
+
+        jQuery('.close-modal').click(function(){
+            jQuery('#group-detail-iframe').attr('src', '');
+        });
     });
 </script>

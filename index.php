@@ -13,15 +13,19 @@ include 'header.php';
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="user-edit.php?uid=<?php echo $uid;?>" 
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-edit.php?uid=<?php echo $uid;?>" 
                     data-title="Edit profile" data-toggle="modal" data-target="#myModal">Edit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="user-change-pass.php?uid=<?php echo $uid;?>" 
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-avatar.php?uid=<?php echo $uid;?>" 
+                    data-title="Change avatar" data-toggle="modal" data-target="#myModal">Change avatar</a> 
+            </li> 
+            <li class="nav-item">
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-pass.php?uid=<?php echo $uid;?>" 
                     data-title="Change password" data-toggle="modal" data-target="#myModal">Change password</a> 
             </li> 
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link" href="/logout.php">Logout</a>
             </li> 
         </ul>
     </nav>
@@ -32,6 +36,10 @@ include 'header.php';
     ?>
     <table class="table table-striped"> 
         <tbody>
+            <tr>
+                <td><strong><?php t_('Avatar');?></strong></td>
+                <td></td> 
+            </tr>   
         <?php for($i=0;$i<count($arrKeys);$i++){
             $val = $arr[$arrKeys[$i]]; 
         ?>

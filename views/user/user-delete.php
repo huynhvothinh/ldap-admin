@@ -1,5 +1,5 @@
 <?php
-include 'header-blank.php'; 
+include '../../header-blank.php'; 
 ?>
 
 <div class="container-fruid"> 
@@ -40,5 +40,5 @@ include 'header-blank.php';
 </div>
 
 <?php
-include 'footer-blank.php';
+include '../../footer-blank.php';
 ?>
