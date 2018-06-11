@@ -10,7 +10,7 @@ include '../../header-blank.php';
     ?>    
     <?php if($item){ ?>
     <?php
-        $arr = json_decode(json_encode($item), true); 
+        $arr = (array)$item;
         $arrKeys = array_keys($arr); 
         sort($arrKeys); 
     ?>

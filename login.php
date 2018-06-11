@@ -90,21 +90,26 @@ if(getPost('form_submitted') != NULL){
       <input type="password" class="form-control" name="admin_password" id="admin_password" value="<?php echo $configs['admin_password'];?>">
     </div> 
     <div class="form-group">
+      <label for="admin_account_suffix">Admin account suffix (Ex: cn=Users):</label>
+      <input type="text" class="form-control" name="admin_account_suffix" id="admin_account_suffix" value="<?php echo $configs['admin_account_suffix'];?>">
+    </div> 
+    <div class="form-group">
       <button type="submit" class="btn btn-primary">Login</button>
     </div> 
-    <div class="form-check">
+    <div class="form-group">
+      <label for="host">Host:</label>
+      <input type="text" disabled class="form-control" name="domain_controllers" id="domain_controllers" value="<?php echo $configs['domain_controllers'];?>">
+    </div> 
+    <div class="form-group">
+      <label for="base_dn">Base DN:</label>
+      <input type="text" disabled class="form-control" name="base_dn" id="base_dn" value="<?php echo $configs['base_dn'];?>">
+    </div> 
+    <!-- advanced -->
+    <div class="form-check advanced_field">
       <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="advanced_options" id="advanced_options" <?php echo (getPost('advanced_options') != NULL ? 'checked' : ''); ?>> <strong>Advanced options</strong>
       </label>
     </div>
-    <div class="form-group advanced_field">
-      <label for="host">Host:</label>
-      <input type="text" class="form-control" name="domain_controllers" id="domain_controllers" value="<?php echo $configs['domain_controllers'][0];?>">
-    </div> 
-    <div class="form-group advanced_field">
-      <label for="base_dn">Base DN:</label>
-      <input type="text" class="form-control" name="base_dn" id="base_dn" value="<?php echo $configs['base_dn'];?>">
-    </div> 
     <div class="form-group advanced_field">
       <label for="base_dn">Port:</label>
       <input type="text" class="form-control" name="port" id="port" value="<?php echo $configs['port'];?>">
@@ -112,10 +117,6 @@ if(getPost('form_submitted') != NULL){
     <div class="form-group advanced_field">
       <label for="admin_account_prefix">Admin account prefix:</label>
       <input type="text" class="form-control" name="admin_account_prefix" id="admin_account_prefix" value="<?php echo $configs['admin_account_prefix'];?>">
-    </div> 
-    <div class="form-group advanced_field">
-      <label for="admin_account_suffix">Admin account suffix:</label>
-      <input type="text" class="form-control" name="admin_account_suffix" id="admin_account_suffix" value="<?php echo $configs['admin_account_suffix'];?>">
     </div> 
     <div class="form-check advanced_field">
       <label class="form-check-label">

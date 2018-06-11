@@ -30,10 +30,10 @@ $configs = [
     'follow_referrals' => false,
 
     // The account prefix to use when authenticating users.
-    'account_prefix' => null,
+    // 'account_prefix' => null,
 
     // The account suffix to use when authenticating users.
-    'account_suffix' => null,
+    // 'account_suffix' => null,
 
     // The username to connect to your hosts with.
     'admin_username' => '',

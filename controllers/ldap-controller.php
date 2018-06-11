@@ -24,14 +24,13 @@ class MyLdap{
     function bind($ldaprdn=''){    
         $account = '';
         if($this->configs['admin_username']){
-            $account = $this->configs['admin_account_prefix'].$this->configs['admin_username']
-                .','.$this->configs['base_dn'];
+            $account = $this->configs['admin_account_prefix'].$this->configs['admin_username'];                
         }
 
         if($ldaprdn){
-            $ldaprdn = $ldaprdn.','.$account;
+            $ldaprdn = $account.','.$ldaprdn.','.$this->configs['base_dn'];
         }else{
-            $ldaprdn = $account;
+            $ldaprdn = $account.','.$this->configs['base_dn'];
         }
 
         $pass = $this->configs['admin_password'];   
@@ -45,7 +44,7 @@ class MyLdap{
     } 
     function auth(){   
         if($this->connect()) {  
-            if ($this->bind()) { 
+            if ($this->bind($this->configs['admin_account_suffix'])) { 
                 return true;
             }else{
                 return false;
