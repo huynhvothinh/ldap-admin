@@ -1,8 +1,8 @@
 <?php
-require_once(dirname(__FILE__).'/vendor/autoload.php');
 require_once(dirname(__FILE__).'/config.php');
 require_once(dirname(__FILE__).'/i18n/vi.php');
 require_once(dirname(__FILE__).'/utils.php');
+require_once(dirname(__FILE__).'/controllers/ldap-controller.php');
 require_once(dirname(__FILE__).'/controllers/user-controller.php');
 require_once(dirname(__FILE__).'/controllers/group-controller.php');
 require_once(dirname(__FILE__).'/controllers/role-controller.php');

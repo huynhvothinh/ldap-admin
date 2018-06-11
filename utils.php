@@ -18,8 +18,9 @@ function echoArr($arr){
         if(count($arr) == 1){
             echo $arr[0];
         }else if(count($arr) > 1){
-            foreach($arr as $val){
-                echo $val.'<br>';
+            for($i=0;$i<count($arr);$i++){                
+                if(array_key_exists($i, $arr))
+                    echo $arr[$i].'<br>';
             }
         } else{
             echo '';

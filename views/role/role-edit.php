@@ -5,11 +5,12 @@ include '../../header-blank.php';
 <div class="container-fruid">
     <?php
         $configs = $_SESSION['config']; 
-        $role = ldapGetRole($configs, getGet('cn'));  
+        $roleController = new MyRole($configs);
+        $item = $roleController->get_item(getGet('item_key'));   
     ?>    
-    <?php if($role){ ?>
+    <?php if($item){ ?>
     <?php
-        $arr = json_decode(json_encode($role), true); 
+        $arr = (array)$item;
         $arrKeys = array_keys($arr); 
         sort($arrKeys);
     ?>

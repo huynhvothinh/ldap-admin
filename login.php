@@ -1,5 +1,6 @@
 <?php
 include 'header.php';
+require_once('controllers/ldap-controller.php')
 ?>
 
 <?php
@@ -52,8 +53,10 @@ if($value != NULL){
 }
 
 // ldap auth
+$message = '';
 if(getPost('form_submitted') != NULL){
-  if(ldapAuth($configs)){
+  $ldap = new MyLdap($configs);
+  if($ldap->auth()){
     // session
     session_start();
     $_SESSION["config"] = $configs;
@@ -63,6 +66,8 @@ if(getPost('form_submitted') != NULL){
     // 
     header("Location: index.php"); /* Redirect browser */
     exit();
+  }else{
+    $message = 'Login failed';
   }
 }
 ?>
@@ -70,6 +75,11 @@ if(getPost('form_submitted') != NULL){
 <div class="container login">
   <form action="login.php" method="post" class="<?php echo (getPost('advanced_options') != NULL ? 'advanced' : ''); ?>">
     <h2>Login</h2>
+
+    <?php if($message){?>
+    <p class="alert alert-warning"><?php t_($message);?></p>
+    <?php } ?>
+    
     <input type="hidden" value="1" name="form_submitted">
     <div class="form-group">
       <label for="admin_username">Admin Name:</label>

@@ -3,8 +3,10 @@ include 'header.php';
 ?>
 
 <?php
+    $userController = new MyUser($configs);
+
     $configs = $_SESSION['config']; 
-    $user = ldapGetUser($configs, $configs['admin_username']);     
+    $user = $userController->get_item($configs['admin_username']);     
     $uid = $configs['admin_username'];  
 ?>    
 
@@ -13,15 +15,15 @@ include 'header.php';
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-edit.php?uid=<?php echo $uid;?>" 
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-edit.php?item_key=<?php echo $uid;?>" 
                     data-title="Edit profile" data-toggle="modal" data-target="#myModal">Edit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-avatar.php?uid=<?php echo $uid;?>" 
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-avatar.php?item_key=<?php echo $uid;?>" 
                     data-title="Change avatar" data-toggle="modal" data-target="#myModal">Change avatar</a> 
             </li> 
             <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-pass.php?uid=<?php echo $uid;?>" 
+                <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-pass.php?item_key=<?php echo $uid;?>" 
                     data-title="Change password" data-toggle="modal" data-target="#myModal">Change password</a> 
             </li> 
             <li class="nav-item">
@@ -31,7 +33,7 @@ include 'header.php';
     </nav>
     <?php if($user){ ?>
     <?php
-        $arr = json_decode(json_encode($user), true); 
+        $arr = (array)$user;
         $arrKeys = array_keys($arr); 
     ?>
     <table class="table table-striped"> 

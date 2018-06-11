@@ -4,14 +4,15 @@ include '../../header-blank.php';
 
 <div class="container-fruid">
     <?php
+        $userController = new MyUser($configs);
+
         $configs = $_SESSION['config']; 
-        $user = ldapGetUser($configs, getGet('uid'));       
+        $item = $userController->get_item(getGet('item_key'));      
     ?>    
-    <?php if($user){ ?>
+    <?php if($item){ ?>
     <?php
-        $arr = json_decode(json_encode($user), true); 
-        $arrKeys = array_keys($arr); 
-        sort($arrKeys);
+        $arr = (array)$item;  
+        $arrKeys = array_keys($arr);  
     ?>
     <table class="table table-striped"> 
         <tbody>
@@ -21,7 +22,7 @@ include '../../header-blank.php';
         <?php if(is_array($val)){?>
                 <tr>
                     <td><strong><?php t_( $arrKeys[$i]);?></strong></td>
-                    <td><?php echo echoArr($val);?></td> 
+                    <td><?php echoArr($val);?></td> 
                 </tr>   
             <?php } // end if?>
         <?php } // end for ?>

@@ -4,10 +4,12 @@ include '../../header-blank.php';
 
 <div class="container-fruid"> 
     <?php
+        $userController = new MyUser($configs);
+
         $configs = $_SESSION['config']; 
-        $user = ldapGetUser($configs, getGet('uid'));       
+        $item = $userController->get_item(getGet('item_key'));        
     ?>    
-    <?php if($user){ ?> 
+    <?php if($item){ ?> 
     <table class="table table-striped"> 
         <tbody> 
             <tr>

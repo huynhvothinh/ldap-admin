@@ -4,12 +4,13 @@ include '../../header-blank.php';
 
 <div class="container-fruid">
     <?php
-        $configs = $_SESSION['config']; 
-        $group = ldapGetGroup($configs, getGet('ou'));       
+        $configs = $_SESSION['config'];
+        $groupController = new MyGroup($configs); 
+        $item = $groupController->get_item(getGet('item_key'));       
     ?>    
-    <?php if($group){ ?>
+    <?php if($item){ ?>
     <?php
-        $arr = json_decode(json_encode($group), true); 
+        $arr = (array)$item;
         $arrKeys = array_keys($arr); 
         sort($arrKeys); 
     ?>
