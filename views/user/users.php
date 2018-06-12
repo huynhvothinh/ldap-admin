@@ -30,13 +30,13 @@ include '../../header.php';
     ?>
         <tr>
             <td><?php echo ($index + 1)?></td>
-            <td><?php echo $uid; ?></td>
             <td>
                 <a href="#" data-href="user-detail.php?item_key=<?php echo $uid; ?>" 
                     data-title="User detail" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    <?php echo $arr[$index]['cn'][0]?>
+                    <?php echo $uid?>
                 </a>
             </td> 
+            <td><?php echo $arr[$index]['cn'][0]; ?></td>
             <td>
                 <a href="#" data-href="user-edit.php?item_key=<?php echo $uid; ?>" 
                     data-title="Edit user" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    

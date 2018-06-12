@@ -37,21 +37,41 @@ require_once('include.php');
   if($file != 'login.php'){  
 ?>
 <div class="container-fruid"> 
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/index.php"><?php t_('My Profile');?></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/views/user/users.php"><?php t_('Users');?></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/views/group/groups.php"><?php t_('Groups');?></a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link" href="/views/role/roles.php"><?php t_('Roles');?></a>
-      </li> 
-    </ul>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/index.php"><?php t_('My Profile');?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/views/user/users.php"><?php t_('Users');?></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/views/group/groups.php"><?php t_('Groups');?></a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="/views/role/roles.php"><?php t_('Roles');?></a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php t_('Import');?></a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php t_('Export');?></a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="#"><?php t_('Settings');?></a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="/logout.php">| <?php t_('Logout');?></a>
+        </li> 
+      </ul>
+    </div>
   </nav> 
 </div>
 <?php

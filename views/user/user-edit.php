@@ -10,15 +10,24 @@ $arrKeys = $userController->get_fields_edit();
 $message = '';
 $itemCode = '';
 $arr = array();
-if(getPost('form_submitted') != NULL){     
+if(getPost('form_submitted') != NULL){ 
+    // the key of item
     $itemCode = getPost('item_code');
 
+    // fields of updating
     $value = NULL;  
     for($i=0;$i<count($arrKeys);$i++){ 
         $value = getPost($arrKeys[$i]);
         if($value != NULL){
             $arr[$arrKeys[$i]][0] = $value;
         }
+    }
+    // do updating
+    $status = $userController->update_item($itemCode, $arr); 
+    if($status){        
+        $message = "Update uccessfully";
+    }else{
+        $message = "Update failed";
     }
 }else{
     $item = $userController->get_item(getGet('item_key')); 
@@ -36,7 +45,6 @@ if(getPost('form_submitted') != NULL){
         <?php } ?>        
         <input type="hidden" value="1" name="form_submitted">
         <input type="hidden" value="<?php echo $itemCode;?>" name="item_code">
-
     
         <?php for($i=0;$i<count($arrKeys);$i++){
             $val = getArrayValue($arr, $arrKeys[$i], false);

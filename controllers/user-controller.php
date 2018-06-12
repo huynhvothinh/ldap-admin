@@ -46,34 +46,30 @@ class MyUser{
         }
     }
 
-    function get_item($id){
-        if($this->ldap->auth()){  
-            $filters = '(&(%s=%s)%s)'; 
-            $filters = sprintf($filters, $this->user_id_key, $id, $this->ldap->configs['user_filter']); 
+    function get_item($id){ 
+        $filters = '(&(%s=%s)%s)'; 
+        $filters = sprintf($filters, $this->user_id_key, $id, $this->ldap->configs['user_filter']); 
 
-            $results = $this->ldap->search($filters);
-            if(is_array($results) && count($results)>0)
-                return $results[0];
-            else
-                return NULL;
-        }else{
-            return NULL;
-        }
+        $results = $this->ldap->search($filters);
+        if(is_array($results) && count($results)>0)
+            return $results[0];
+        else
+            return NULL; 
     }
     
-    function get_list(){
-        if($this->ldap->auth()){  
-            $filters = $this->ldap->configs['user_filter'];
-            $results = $this->ldap->search($filters);
+    function get_list(){  
+        $filters = $this->ldap->configs['user_filter'];
+        $results = $this->ldap->search($filters);
 
-            if($results)
-                return $this->sort($results);
-            else
-                return NULL;
-        }else{
-            return NULL;
-        }
+        if($results)
+            return $this->sort($results);
+        else
+            return NULL; 
     } 
+
+    function update_item($item_key, $entry){        
+        return $this->ldap->update($item_key, $entry);
+    }
 }
 // 
 function compareUserUID($a, $b) {

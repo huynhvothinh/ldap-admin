@@ -33,32 +33,24 @@ class MyGroup{
         return $this->ldap->configs['group_edit_fields'];
     }
 
-    function get_item($id){        
-        if($this->ldap->auth()){  
-            $filters = '(&(cn=%s)%s)'; 
-            $filters = sprintf($filters, $id, $this->ldap->configs['group_filter']); 
-            
-            $results = $this->ldap->search($filters);
-            if($results)
-                return $results[0];
-            else
-                return NULL;
-        }else{
-            return NULL;
-        }
+    function get_item($id){    
+        $filters = '(&(cn=%s)%s)'; 
+        $filters = sprintf($filters, $id, $this->ldap->configs['group_filter']); 
+        
+        $results = $this->ldap->search($filters);
+        if($results)
+            return $results[0];
+        else
+            return NULL; 
     }
 
-    function get_list(){     
-        if($this->ldap->auth()){  
-            $filters = $this->ldap->configs['group_filter']; 
-            $results = $this->ldap->search($filters);
-            if($results)
-                return $this->sort($results);
-            else
-                return NULL;
-        }else{
-            return NULL;
-        }
+    function get_list(){      
+        $filters = $this->ldap->configs['group_filter']; 
+        $results = $this->ldap->search($filters);
+        if($results)
+            return $this->sort($results);
+        else
+            return NULL; 
     } 
 }
 // 

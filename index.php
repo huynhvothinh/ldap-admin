@@ -25,10 +25,7 @@ include 'header.php';
             <li class="nav-item">
                 <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-change-pass.php?item_key=<?php echo $uid;?>" 
                     data-title="Change password" data-toggle="modal" data-target="#myModal">Change password</a> 
-            </li> 
-            <li class="nav-item">
-                <a class="nav-link" href="/logout.php">Logout</a>
-            </li> 
+            </li>  
         </ul>
     </nav>
     <?php if($user){ ?>
@@ -40,7 +37,9 @@ include 'header.php';
         <tbody>
             <tr>
                 <td><strong><?php t_('Avatar');?></strong></td>
-                <td></td> 
+                <td><?php if(isset($arr['thumbnailphoto'][0])){
+                    echo $arr['thumbnailphoto'][0];
+                }?></td> 
             </tr>   
         <?php for($i=0;$i<count($arrKeys);$i++){
             $val = getArrayValue($arr, $arrKeys[$i]);

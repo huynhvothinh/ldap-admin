@@ -62,5 +62,17 @@ class MyLdap{
             return NULL;
         }
     }
+    function update($item_key, $entry){ 
+        if($this->auth()) {
+            try{
+                $result = ldap_modify($this->ldapconn, $item_key, $entry); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
 }
 ?>
