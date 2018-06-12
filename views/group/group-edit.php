@@ -11,20 +11,17 @@ include '../../header-blank.php';
     <?php if($item){ ?>
     <?php
         $arr = (array)$item;
-        $arrKeys = array_keys($arr); 
-        sort($arrKeys); 
+        $arrKeys = $groupController->get_fields_edit();
     ?>
     <table class="table table-striped"> 
         <tbody>
         <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = $arr[$arrKeys[$i]]; 
-        ?>
-        <?php if(is_array($val)){?>
-                <tr>
-                    <td><strong><?php echo $arrKeys[$i];?></strong></td>
-                    <td><?php echo echoArr($val);?></td> 
-                </tr>   
-            <?php } // end if?>
+            $val = getArrayValue($arr, $arrKeys[$i]);
+        ?> 
+            <tr>
+                <td><strong><?php echo $arrKeys[$i];?></strong></td>
+                <td><?php echo echoArr($val);?></td> 
+            </tr>  
         <?php } // end for ?>
         </tbody>
     </table>

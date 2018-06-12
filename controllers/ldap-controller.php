@@ -54,7 +54,7 @@ class MyLdap{
         }
     }
     function search($filters){ 
-        if($this->auth()) {  
+        if($this->auth()) {
             $result = ldap_search($this->ldapconn,$this->configs['base_dn'], $filters);
             $data = ldap_get_entries($this->ldapconn, $result);
             return $data;

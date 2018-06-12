@@ -27,29 +27,11 @@ if($value != NULL){
   $configs['base_dn'] = $value;
 }
 
-$value = getPost('port');
-if($value != NULL){
-  $configs['port'] = $value;
-}
-
-$value = getPost('port');
-if($value != NULL){
-  $configs['port'] = $value;
-}
-
-$value = getPost('admin_account_prefix');
-if($value != NULL){
-  $configs['admin_account_prefix'] = $value;
-}
-
-$value = getPost('admin_account_suffix');
+$value = getPost('admin_account_suffix'); 
 if($value != NULL){
   $configs['admin_account_suffix'] = $value;
-}
-
-$value = getPost('use_tls');
-if($value != NULL){
-  $configs['use_tls'] = $value;
+}else{
+  $configs['admin_account_suffix'] = '';
 }
 
 // ldap auth
@@ -60,8 +42,6 @@ if(getPost('form_submitted') != NULL){
     // session
     session_start();
     $_SESSION["config"] = $configs;
-    $_SESSION["admin_username"] = $configs['admin_username'];
-    $_SESSION["admin_password"] = $configs['admin_password'];
 
     // 
     header("Location: index.php"); /* Redirect browser */
@@ -73,7 +53,7 @@ if(getPost('form_submitted') != NULL){
 ?>
 
 <div class="container login">
-  <form action="login.php" method="post" class="<?php echo (getPost('advanced_options') != NULL ? 'advanced' : ''); ?>">
+  <form action="login.php" method="post">
     <h2>Login</h2>
 
     <?php if($message){?>
@@ -90,8 +70,20 @@ if(getPost('form_submitted') != NULL){
       <input type="password" class="form-control" name="admin_password" id="admin_password" value="<?php echo $configs['admin_password'];?>">
     </div> 
     <div class="form-group">
-      <label for="admin_account_suffix">Admin account suffix (Ex: cn=Users):</label>
-      <input type="text" class="form-control" name="admin_account_suffix" id="admin_account_suffix" value="<?php echo $configs['admin_account_suffix'];?>">
+      <label for="admin_account_suffix">Admin account suffix (Ex: cn=Users):</label>  
+      <select name="admin_account_suffix" id="admin_account_suffix" class="form-control"> 
+      <?php 
+        if(is_array($configs['admin_account_suffix_arr'])){
+          foreach($configs['admin_account_suffix_arr'] as $suffix){
+            if($suffix == $configs['admin_account_suffix']){
+              echo '<option value="'.$suffix.'" selected>'.$suffix.'</option>';
+            }else{
+              echo '<option value="'.$suffix.'">'.$suffix.'</option>';
+            }
+          }
+        }
+      ?>
+      </select>
     </div> 
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Login</button>
@@ -104,30 +96,6 @@ if(getPost('form_submitted') != NULL){
       <label for="base_dn">Base DN:</label>
       <input type="text" disabled class="form-control" name="base_dn" id="base_dn" value="<?php echo $configs['base_dn'];?>">
     </div> 
-    <!-- advanced -->
-    <div class="form-check advanced_field">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="advanced_options" id="advanced_options" <?php echo (getPost('advanced_options') != NULL ? 'checked' : ''); ?>> <strong>Advanced options</strong>
-      </label>
-    </div>
-    <div class="form-group advanced_field">
-      <label for="base_dn">Port:</label>
-      <input type="text" class="form-control" name="port" id="port" value="<?php echo $configs['port'];?>">
-    </div> 
-    <div class="form-group advanced_field">
-      <label for="admin_account_prefix">Admin account prefix:</label>
-      <input type="text" class="form-control" name="admin_account_prefix" id="admin_account_prefix" value="<?php echo $configs['admin_account_prefix'];?>">
-    </div> 
-    <div class="form-check advanced_field">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="use_ssl" id="use_ssl" <?php echo ($configs['use_ssl'] ? 'checked' : '');?>> Use SSL
-      </label>
-    </div>
-    <div class="form-check advanced_field">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="use_tls" id="use_tls" <?php echo ($configs['use_tls'] ? 'checked' : '');?>> Use TLS
-      </label>
-    </div>
   </form>
 </div>
 

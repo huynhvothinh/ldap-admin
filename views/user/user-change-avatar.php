@@ -4,9 +4,9 @@ include '../../header-blank.php';
 
 <div class="container-fruid"> 
     <?php
-        $userController = new MyUser($configs);
-
         $configs = $_SESSION['config']; 
+
+        $userController = new MyUser($configs);
         $item = $userController->get_item(getGet('item_key'));        
     ?>    
     <?php if($item){ ?> 

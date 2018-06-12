@@ -10,22 +10,14 @@ include '../../header-blank.php';
     ?>    
     <?php if($item){ ?>
     <?php
-        $arr = (array)$item;
-        $arrKeys = array_keys($arr); 
-        sort($arrKeys); 
+        $arr = (array)$item; 
     ?>
     <table class="table table-striped"> 
-        <tbody>
-        <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = $arr[$arrKeys[$i]]; 
-        ?>
-        <?php if(is_array($val)){?>
-                <tr>
-                    <td><strong><?php echo $arrKeys[$i];?></strong></td>
-                    <td><?php echo echoArr($val);?></td> 
-                </tr>   
-            <?php } // end if?>
-        <?php } // end for ?>
+        <tbody> 
+            <tr>
+                <td><strong><?php t_('cn');?></strong></td>
+                <td><?php echo echoArr($arr['cn']);?></td> 
+            </tr>    
         </tbody>
     </table>
     <?php } // end if?> 

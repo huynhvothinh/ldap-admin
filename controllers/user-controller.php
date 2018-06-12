@@ -29,6 +29,23 @@ class MyUser{
         }
     }  
 
+    function get_fields_detail(){
+        return $this->ldap->configs['user_detail_fields'];
+    }
+
+    function get_fields_edit(){
+        return $this->ldap->configs['user_edit_fields'];
+    }
+    
+    function get_object_dn($item){
+        $arr = (array)$item;
+        if($this->user_id_key == 'uid'){
+            return sprintf('uid=%s,%s', $arr['uid'][0], $this->ldap->configs['base_dn']);
+        }else{
+            return $arr['distinguishedname'][0];
+        }
+    }
+
     function get_item($id){
         if($this->ldap->auth()){  
             $filters = '(&(%s=%s)%s)'; 

@@ -3,9 +3,9 @@ include 'header.php';
 ?>
 
 <?php
-    $userController = new MyUser($configs);
-
     $configs = $_SESSION['config']; 
+
+    $userController = new MyUser($configs); 
     $user = $userController->get_item($configs['admin_username']);     
     $uid = $configs['admin_username'];  
 ?>    
@@ -33,8 +33,8 @@ include 'header.php';
     </nav>
     <?php if($user){ ?>
     <?php
-        $arr = (array)$user;
-        $arrKeys = array_keys($arr); 
+        $arr = (array)$user; 
+        $arrKeys = $userController->get_fields_detail();
     ?>
     <table class="table table-striped"> 
         <tbody>
@@ -43,14 +43,12 @@ include 'header.php';
                 <td></td> 
             </tr>   
         <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = $arr[$arrKeys[$i]]; 
-        ?>
-        <?php if(is_array($val)){?>
-                <tr>
-                    <td><strong><?php echo $arrKeys[$i];?></strong></td>
-                    <td><?php echo echoArr($val);?></td> 
-                </tr>   
-            <?php } // end if?>
+            $val = getArrayValue($arr, $arrKeys[$i]);
+        ?> 
+            <tr>
+                <td><strong><?php echo $arrKeys[$i];?></strong></td>
+                <td><?php echo echoArr($val);?></td> 
+            </tr>    
         <?php } // end for ?>
         </tbody>
     </table>

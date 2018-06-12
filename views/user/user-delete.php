@@ -4,28 +4,21 @@ include '../../header-blank.php';
 
 <div class="container-fruid">
     <?php
-        $userController = new MyUser($configs);
-
         $configs = $_SESSION['config']; 
+        
+        $userController = new MyUser($configs);
         $item = $userController->get_item(getGet('item_key'));      
     ?>    
     <?php if($item){ ?>
     <?php
-        $arr = (array)$item;
-        $arrKeys = array_keys($arr);  
+        $arr = (array)$item; 
     ?>
     <table class="table table-striped"> 
-        <tbody>
-        <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = $arr[$arrKeys[$i]]; 
-        ?>
-        <?php if(is_array($val)){?>
-                <tr>
-                    <td><strong><?php t_( $arrKeys[$i]);?></strong></td>
-                    <td><?php echoArr($val);?></td> 
-                </tr>   
-            <?php } // end if?>
-        <?php } // end for ?>
+        <tbody> 
+            <tr>
+                <td><strong><?php t_( $userController->user_id_key);?></strong></td>
+                <td><?php echoArr($arr[$userController->user_id_key]);?></td> 
+            </tr>    
         </tbody>
     </table>
     <?php } // end if?> 

@@ -25,6 +25,14 @@ class MyRole{
         }
     } 
 
+    function get_fields_detail(){
+        return $this->ldap->configs['role_detail_fields'];
+    }
+
+    function get_fields_edit(){
+        return $this->ldap->configs['role_edit_fields'];
+    }
+
     function get_item($id){        
         if($this->ldap->auth()){  
             $filters = '(&(cn=%s)%s)'; 

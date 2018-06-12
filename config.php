@@ -29,12 +29,6 @@ $configs = [
     // Whether or not follow referrals is enabled when performing LDAP operations.
     'follow_referrals' => false,
 
-    // The account prefix to use when authenticating users.
-    // 'account_prefix' => null,
-
-    // The account suffix to use when authenticating users.
-    // 'account_suffix' => null,
-
     // The username to connect to your hosts with.
     'admin_username' => '',
 
@@ -48,7 +42,7 @@ $configs = [
     'admin_account_prefix' => 'uid=',
 
     // The account prefix to use when authenticating your admin account above.
-    // ex: ',dc=example,dc=com'
+    // ex: 'cn=Users'
     'admin_account_suffix' => '',
 
     // Custom LDAP options that you'd like to utilize.
@@ -57,7 +51,24 @@ $configs = [
     // need to update for window or linux
     'user_filter' => '(objectclass=person)',
     'group_filter' => '(objectclass=groupOfUniqueNames)',
-    'role_filter' => '(objectclass=organizationalRole)'
+    'role_filter' => '(objectclass=organizationalRole)',
+	
+	// list of suffix to select
+    'admin_account_suffix_arr' => ['', 'CN=Users'],
+	
+	// list of supper admin group
+    'super_admin_arr' => [],
+	
+	// list of admin group
+    'admin_arr' => [],
+
+    // FIELDS
+    'user_detail_fields' => ['cn', 'mail', 'objectclass'],
+    'user_edit_fields' => ['cn'],
+    'group_detail_fields' => ['cn'],
+    'group_edit_fields' => ['cn'],
+    'role_detail_fields' => ['cn'],
+    'role_edit_fields' => ['cn']
 ];
 
 ?>

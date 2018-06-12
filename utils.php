@@ -13,6 +13,29 @@ function getPost($key){
         return NULL;
     }
 }
+function getArrayValue($arr, $key, $level1=true, $default=''){
+    if(is_array($arr)){
+        if(isset($arr[$key])){
+            if($level1 == 1){
+                return $arr[$key];
+            }else{
+                if(is_array($arr[$key])){
+                    if(count($arr[$key]) > 0){ 
+                        return $arr[$key][0];
+                    } else{
+                        return $default;
+                    }
+                }else{
+                    return $arr[$key];
+                }
+            }
+        }else{
+            return $default;
+        }
+    }else{
+        return $default;
+    }
+}
 function echoArr($arr){
     if(is_array($arr)){
         if(count($arr) == 1){

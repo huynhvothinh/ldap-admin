@@ -1,34 +1,56 @@
 <?php
 include '../../header-blank.php'; 
+
+$configs = $_SESSION['config'];         
+$userController = new MyUser($configs);
+$arrKeys = $userController->get_fields_edit(); 
 ?>
 
-<div class="container-fruid">
-    <?php
-        $userController = new MyUser($configs);
+<?php
+$message = '';
+$itemCode = '';
+$arr = array();
+if(getPost('form_submitted') != NULL){     
+    $itemCode = getPost('item_code');
 
-        $configs = $_SESSION['config']; 
-        $item = $userController->get_item(getGet('item_key'));      
-    ?>    
-    <?php if($item){ ?>
-    <?php
+    $value = NULL;  
+    for($i=0;$i<count($arrKeys);$i++){ 
+        $value = getPost($arrKeys[$i]);
+        if($value != NULL){
+            $arr[$arrKeys[$i]][0] = $value;
+        }
+    }
+}else{
+    $item = $userController->get_item(getGet('item_key')); 
+    if($item){
         $arr = (array)$item;
-        $arrKeys = array_keys($arr);  
-    ?>
-    <table class="table table-striped"> 
-        <tbody>
+        $itemCode = $userController->get_object_dn($item);
+    }
+}
+?>
+
+<div class="container-fruid">   
+    <form action="/views/user/user-edit.php" method="post">
+        <?php if($message){?>
+        <p class="alert alert-warning"><?php t_($message);?></p>
+        <?php } ?>        
+        <input type="hidden" value="1" name="form_submitted">
+        <input type="hidden" value="<?php echo $itemCode;?>" name="item_code">
+
+    
         <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = $arr[$arrKeys[$i]]; 
+            $val = getArrayValue($arr, $arrKeys[$i], false);
         ?>
-        <?php if(is_array($val)){?>
-                <tr>
-                    <td><strong><?php t_( $arrKeys[$i]);?></strong></td>
-                    <td><?php echoArr($val);?></td> 
-                </tr>   
-            <?php } // end if?>
-        <?php } // end for ?>
-        </tbody>
-    </table>
-    <?php } // end if?> 
+            <div class="form-group">
+                <label for="<?php echo $arrKeys[$i];?>"><?php t_( $arrKeys[$i]);?></label>
+                <input type="text" class="form-control" name="<?php echo $arrKeys[$i];?>" id="<?php echo $arrKeys[$i];?>" value="<?php echo $val;?>">
+            </div>  
+        <?php } // end for ?> 
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>  
+    </form> 
 </div>
 
 <?php
