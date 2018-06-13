@@ -1,0 +1,86 @@
+{
+    "Login":{
+        "vi": "Đăng nhập"
+    },
+    "Account":{
+        "vi": "Tài khoản"
+    },
+    "Password":{
+        "vi": "Mật khẩu"
+    },
+    "Login failed": {
+        "vi": "Lỗi đăng nhập"
+    },
+    "My Profile":{
+        "vi": "Thông tin cá nhân"
+    },
+    "Users":{
+        "vi": "Tài khoản"
+    },
+    "Groups":{
+        "vi": "Nhóm"
+    },
+    "Roles":{
+        "vi": "Vai trò"
+    },
+    "Import":{
+        "vi": "Import"
+    },
+    "Export":{
+        "vi": "Export"
+    },
+    "Settings":{
+        "vi": "Cài đặt"
+    },
+    "Logout":{
+        "vi": "Đăng xuất"
+    },
+    "Edit":{
+        "vi": "Sửa"
+    },
+    "Delete":{
+        "vi": "Xóa"
+    },
+    "Detail":{
+        "vi": "Chi tiết"
+    },
+    "User detail":{
+        "vi": "Chi tiết tài khoản"
+    },
+    "User edit":{
+        "vi": "Sửa tài khoản"
+    },
+    "User delete":{
+        "vi": "Xóa tài khoản"
+    },
+    "Key":{
+        "vi": "Key"
+    },
+    "User name":{
+        "vi": "Tên"
+    },
+    "Group name":{
+        "vi": "Tên nhóm"
+    },
+    "Group detail":{
+        "vi": "Chi tiết nhóm"
+    },
+    "Group edit":{
+        "vi": "Sửa nhóm"
+    },
+    "Group delete":{
+        "vi": "Xóa nhóm"
+    },
+    "Role detail":{
+        "vi": "Chi tiết vai trò"
+    },
+    "Role edit":{
+        "vi": "Sửa vai trò"
+    },
+    "Role delete":{
+        "vi": "Xóa vai trò"
+    },
+    "Description":{
+        "vi": "Mô tả"
+    }
+}

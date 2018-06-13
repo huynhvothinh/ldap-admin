@@ -3,7 +3,7 @@ include '../../header.php';
 ?>
 
 <div class="container-fruid">
-    <h2>Groups</h2>
+    <h2><?php t_('Groups');?></h2>
     <?php
         $configs = $_SESSION['config']; 
         $groupController = new MyGroup($configs);
@@ -13,8 +13,8 @@ include '../../header.php';
         <thead>
         <tr>
             <th style="width:30px">No.</th>
-            <th>Key</th> 
-            <th>Group name</th> 
+            <th><?php t_('Key');?></th> 
+            <th><?php t_('Group name');?></th> 
             <th></th> 
         </tr>
         </thead>
@@ -28,18 +28,18 @@ include '../../header.php';
             <td><?php echo $arr[$index]['cn'][0]?></td>
             <td>
                 <a href="#" data-href="group-detail.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Group detail" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    data-title="<?php t_('Group detail');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php echo $arr[$index]['cn'][0]?>
                 </a>
             </td> 
             <td>
                 <a href="#" data-href="group-edit.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Group edit" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Edit
+                    data-title="<?php t_('Group edit');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Edit');?>
                 </a> | 
                 <a href="#" data-href="group-delete.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Group delete" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Delete
+                    data-title="<?php t_('Group delete');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Delete');?>
                 </a>
             </td> 
         </tr> 

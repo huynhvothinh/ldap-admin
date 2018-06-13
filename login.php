@@ -1,9 +1,18 @@
 <?php
 include 'header.php';
-require_once('controllers/ldap-controller.php')
+require_once('controllers/ldap-controller.php');
 ?>
 
 <?php
+
+$default_configs = MyConfig::$default_configs;
+
+$configs = [
+  'admin_username' => '',
+  'admin_password' => '',
+  'admin_account_suffix' => ''
+];
+
 
 // prepare config
 $value = NULL;
@@ -15,16 +24,6 @@ if($value != NULL){
 $value = getPost('admin_password');
 if($value != NULL){
   $configs['admin_password'] = $value;
-}
-
-$value = getPost('domain_controllers'); 
-if($value != NULL){
-  $configs['domain_controllers'][0] = $value;
-}
-
-$value = getPost('base_dn');
-if($value != NULL){
-  $configs['base_dn'] = $value;
 }
 
 $value = getPost('admin_account_suffix'); 
@@ -47,14 +46,14 @@ if(getPost('form_submitted') != NULL){
     header("Location: index.php"); /* Redirect browser */
     exit();
   }else{
-    $message = 'Login failed';
+    $message = t_value( 'Login failed');
   }
 }
 ?>
 
 <div class="container login">
   <form action="login.php" method="post">
-    <h2>Login</h2>
+    <h2><?php t_('Login');?></h2>
 
     <?php if($message){?>
     <p class="alert alert-warning"><?php t_($message);?></p>
@@ -62,20 +61,20 @@ if(getPost('form_submitted') != NULL){
     
     <input type="hidden" value="1" name="form_submitted">
     <div class="form-group">
-      <label for="admin_username">Admin Name:</label>
-      <input type="text" class="form-control" name="admin_username" id="admin_username" value="<?php echo $configs['admin_username'];?>">
+      <label for="admin_username"><?php t_('Account');?></label>
+      <input type="text" class="form-control" name="admin_username" id="admin_username" value="<?php echo $default_configs['admin_username'];?>">
     </div> 
     <div class="form-group">
-      <label for="admin_password">Admin Password:</label>
-      <input type="password" class="form-control" name="admin_password" id="admin_password" value="<?php echo $configs['admin_password'];?>">
+      <label for="admin_password"><?php t_('Password');?></label>
+      <input type="password" class="form-control" name="admin_password" id="admin_password" value="<?php echo $default_configs['admin_password'];?>">
     </div> 
     <div class="form-group">
-      <label for="admin_account_suffix">Admin account suffix (Ex: cn=Users):</label>  
+      <label for="admin_account_suffix"><?php t_('Account suffix (Ex: cn=Users)');?></label>  
       <select name="admin_account_suffix" id="admin_account_suffix" class="form-control"> 
       <?php 
-        if(is_array($configs['admin_account_suffix_arr'])){
-          foreach($configs['admin_account_suffix_arr'] as $suffix){
-            if($suffix == $configs['admin_account_suffix']){
+        if(is_array($default_configs['admin_account_suffix_arr'])){
+          foreach($default_configs['admin_account_suffix_arr'] as $suffix){
+            if($suffix == $default_configs['admin_account_suffix']){
               echo '<option value="'.$suffix.'" selected>'.$suffix.'</option>';
             }else{
               echo '<option value="'.$suffix.'">'.$suffix.'</option>';
@@ -86,15 +85,15 @@ if(getPost('form_submitted') != NULL){
       </select>
     </div> 
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Login</button>
+      <button type="submit" class="btn btn-primary"><?php t_('Login');?></button>
     </div> 
     <div class="form-group">
-      <label for="host">Host:</label>
-      <input type="text" disabled class="form-control" name="domain_controllers" id="domain_controllers" value="<?php echo $configs['domain_controllers'];?>">
+      <label for="host"><?php t_('Host');?></label>
+      <input type="text" disabled class="form-control" name="domain_controllers" id="domain_controllers" value="<?php echo $default_configs['domain_controllers'];?>">
     </div> 
     <div class="form-group">
-      <label for="base_dn">Base DN:</label>
-      <input type="text" disabled class="form-control" name="base_dn" id="base_dn" value="<?php echo $configs['base_dn'];?>">
+      <label for="base_dn"><?php t_('Base DN');?></label>
+      <input type="text" disabled class="form-control" name="base_dn" id="base_dn" value="<?php echo $default_configs['base_dn'];?>">
     </div> 
   </form>
 </div>

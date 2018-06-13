@@ -30,11 +30,11 @@ class MyUser{
     }  
 
     function get_fields_detail(){
-        return $this->ldap->configs['user_detail_fields'];
+        return $this->ldap->configs['fields']['user']['detail'];
     }
 
     function get_fields_edit(){
-        return $this->ldap->configs['user_edit_fields'];
+        return $this->ldap->configs['fields']['user']['edit'];
     }
     
     function get_object_dn($item){

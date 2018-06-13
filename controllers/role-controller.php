@@ -26,11 +26,11 @@ class MyRole{
     } 
 
     function get_fields_detail(){
-        return $this->ldap->configs['role_detail_fields'];
+        return $this->ldap->configs['fields']['role']['detail'];
     }
 
     function get_fields_edit(){
-        return $this->ldap->configs['role_edit_fields'];
+        return $this->ldap->configs['fields']['role']['edit'];
     }
 
     function get_item($id){      

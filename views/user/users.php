@@ -3,7 +3,7 @@ include '../../header.php';
 ?>
 
 <div class="container-fruid">
-    <h2>Users</h2>
+    <h2><?php t_('Users');?></h2>
     <?php
         $configs = $_SESSION['config']; 
         $userController = new MyUser($configs);
@@ -13,8 +13,8 @@ include '../../header.php';
         <thead>
         <tr>
             <th style="width:30px">No.</th>
-            <th>Key</th> 
-            <th>User name</th> 
+            <th><?php t_('Key');?></th> 
+            <th><?php t_('User name');?></th> 
             <th></th> 
         </tr>
         </thead>
@@ -32,20 +32,20 @@ include '../../header.php';
             <td><?php echo ($index + 1)?></td>
             <td>
                 <a href="#" data-href="user-detail.php?item_key=<?php echo $uid; ?>" 
-                    data-title="User detail" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    data-title="<?php t_('User detail');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php echo $uid?>
                 </a>
             </td> 
             <td><?php echo $arr[$index]['cn'][0]; ?></td>
             <td>
                 <a href="#" data-href="user-edit.php?item_key=<?php echo $uid; ?>" 
-                    data-title="Edit user" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Edit
+                    data-title="<?php t_('Edit user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Edit');?>
                 </a> | 
 
                 <a href="#" data-href="user-delete.php?item_key=<?php echo $uid; ?>" 
-                    data-title="Delete user" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Delete
+                    data-title="<?php t_('Delete user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Delete');?>
                 </a>
             </td> 
         </tr> 

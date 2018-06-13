@@ -26,11 +26,11 @@ class MyGroup{
     } 
 
     function get_fields_detail(){
-        return $this->ldap->configs['group_detail_fields'];
+        return $this->ldap->configs['fields']['group']['detail'];
     }
 
     function get_fields_edit(){
-        return $this->ldap->configs['group_edit_fields'];
+        return $this->ldap->configs['fields']['group']['edit'];
     }
 
     function get_item($id){    

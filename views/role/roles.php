@@ -3,7 +3,7 @@ include '../../header.php';
 ?>
 
 <div class="container-fruid">
-    <h2>Roles</h2>
+    <h2><?php t_('Roles');?></h2>
     <?php
         $configs = $_SESSION['config']; 
         $roleController = new MyRole($configs);
@@ -13,8 +13,8 @@ include '../../header.php';
         <thead>
         <tr>
             <th style="width:30px">No.</th>
-            <th>Role name</th> 
-            <th>Description</th> 
+            <th><?php t_('Role name');?></th> 
+            <th><?php t_('Description');?></th> 
             <th></th> 
         </tr>
         </thead>
@@ -27,19 +27,19 @@ include '../../header.php';
             <td><?php echo ($index + 1)?></td>
             <td>
                 <a href="#" data-href="role-detail.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Role detail" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    data-title="<?php t_('Role detail');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php echo $arr[$index]['cn'][0]?>
                 </a>
             </td> 
             <td><?php echo $arr[$index]['description'][0]?></td>
             <td>
                 <a href="#" data-href="role-edit.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Role edit" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Edit
+                    data-title="<?php t_('Role edit');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Edit');?>
                 </a> | 
                 <a href="#" data-href="role-delete.php?item_key=<?php echo $arr[$index]['cn'][0]?>" 
-                    data-title="Role delete" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    Delete
+                    data-title="<?php t_('Role delete');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Delete');?>
                 </a>
             </td> 
         </tr> 
