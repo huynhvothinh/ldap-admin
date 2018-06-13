@@ -56,9 +56,6 @@ require_once('include.php');
           <a class="nav-link" href="/views/group/groups.php"><?php t_('Groups');?></a>
         </li> 
         <li class="nav-item">
-          <a class="nav-link" href="/views/role/roles.php"><?php t_('Roles');?></a>
-        </li> 
-        <li class="nav-item">
           <a class="nav-link" href="#"><?php t_('Import');?></a>
         </li> 
         <li class="nav-item">

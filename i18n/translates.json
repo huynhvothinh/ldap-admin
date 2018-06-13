@@ -20,9 +20,6 @@
     "Groups":{
         "vi": "Nhóm"
     },
-    "Roles":{
-        "vi": "Vai trò"
-    },
     "Import":{
         "vi": "Import"
     },
@@ -70,15 +67,6 @@
     },
     "Group delete":{
         "vi": "Xóa nhóm"
-    },
-    "Role detail":{
-        "vi": "Chi tiết vai trò"
-    },
-    "Role edit":{
-        "vi": "Sửa vai trò"
-    },
-    "Role delete":{
-        "vi": "Xóa vai trò"
     },
     "Description":{
         "vi": "Mô tả"

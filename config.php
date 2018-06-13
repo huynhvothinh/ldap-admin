@@ -52,7 +52,6 @@ class MyConfig{
         // need to update for window or linux
         'user_filter' => '(objectclass=person)',
         'group_filter' => '(objectclass=groupOfUniqueNames)',
-        'role_filter' => '(objectclass=organizationalRole)',
         
         // list of suffix to select
         'admin_account_suffix_arr' => ['', 'CN=Users'],   
@@ -64,10 +63,6 @@ class MyConfig{
                 'edit' => ['cn']
             ],
             'group' => [
-                'detail' => ['cn'],
-                'edit' => ['cn']
-            ],
-            'role' => [
                 'detail' => ['cn'],
                 'edit' => ['cn']
             ]
