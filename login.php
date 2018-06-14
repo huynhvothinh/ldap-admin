@@ -1,10 +1,9 @@
 <?php
 include 'header.php';
-require_once('controllers/ldap-controller.php');
 ?>
 
 <?php
-
+$settingController = new MySetting();
 $default_configs = MyConfig::$default_configs;
 
 $configs = [
@@ -36,8 +35,8 @@ if($value != NULL){
 // ldap auth
 $message = '';
 if(getPost('form_submitted') != NULL){
-  $ldap = new MyLdap($configs);
-  if($ldap->auth()){
+  $ldapController = new MyLdap($configs);
+  if($ldapController->auth()){
     // session
     session_start();
     $_SESSION["config"] = $configs;
@@ -70,19 +69,23 @@ if(getPost('form_submitted') != NULL){
     </div> 
     <div class="form-group">
       <label for="admin_account_suffix"><?php t_('Account suffix (Ex: cn=Users)');?></label>  
-      <select name="admin_account_suffix" id="admin_account_suffix" class="form-control"> 
-      <?php 
-        if(is_array($default_configs['admin_account_suffix_arr'])){
-          foreach($default_configs['admin_account_suffix_arr'] as $suffix){
-            if($suffix == $default_configs['admin_account_suffix']){
-              echo '<option value="'.$suffix.'" selected>'.$suffix.'</option>';
-            }else{
-              echo '<option value="'.$suffix.'">'.$suffix.'</option>';
-            }
-          }
-        }
-      ?>
-      </select>
+      <div class="text-dropdown">
+        <input type="text" name="admin_account_suffix" id="admin_account_suffix" 
+          class="form-control" value="<?php echo $configs['admin_account_suffix']; ?>">
+        <div class="dropdown admin_account_suffix">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+          <div class="dropdown-menu dropdown-menu-right"> 
+            <?php 
+              $account_suffix_arr = $settingController->get_account_suffix();
+              if(is_array($account_suffix_arr)){
+                foreach($account_suffix_arr as $suffix){ 
+                  echo '<a class="dropdown-item" href="#" data-value="'.$suffix.'">'.$suffix.'</a>'; 
+                }
+              }
+            ?>
+          </div>
+        </div> 
+      </div>
     </div> 
     <div class="form-group">
       <button type="submit" class="btn btn-primary"><?php t_('Login');?></button>
@@ -100,21 +103,9 @@ if(getPost('form_submitted') != NULL){
 
 <script>
   jQuery(document).ready(function(){
-    jQuery('#advanced_options').change(function(){ 
-      jQuery('.login form').toggleClass('advanced');
-    });
-    
-    jQuery('#use_ssl').change(function(){
-      jQuery('#use_tls').prop('checked', false);
-      jQuery('#port').val(jQuery('#use_ssl').is(':checked') == true ? 636 : 389);
-    });
-    
-    jQuery('#use_tls').change(function(){
-      if(jQuery('#use_ssl').is(':checked') == true){
-        jQuery('#use_ssl').prop('checked', false);
-        jQuery('#use_ssl').change();
-      }
-    });
+    jQuery('.dropdown.admin_account_suffix .dropdown-item').click(function(){ 
+      jQuery('#admin_account_suffix').val(jQuery(this).attr('data-value'));
+    }); 
   });
 </script>
 

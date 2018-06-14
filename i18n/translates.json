@@ -3,7 +3,7 @@
         "vi": "Đăng nhập"
     },
     "Account":{
-        "vi": "Tài khoản"
+        "vi": "người dùng"
     },
     "Password":{
         "vi": "Mật khẩu"
@@ -15,7 +15,7 @@
         "vi": "Thông tin cá nhân"
     },
     "Users":{
-        "vi": "Tài khoản"
+        "vi": "Người dùng"
     },
     "Groups":{
         "vi": "Nhóm"
@@ -32,6 +32,9 @@
     "Logout":{
         "vi": "Đăng xuất"
     },
+    "View": {
+        "vi": "Xem"
+    },
     "Edit":{
         "vi": "Sửa"
     },
@@ -42,13 +45,13 @@
         "vi": "Chi tiết"
     },
     "User detail":{
-        "vi": "Chi tiết tài khoản"
+        "vi": "Chi tiết người dùng"
     },
     "User edit":{
-        "vi": "Sửa tài khoản"
+        "vi": "Sửa người dùng"
     },
     "User delete":{
-        "vi": "Xóa tài khoản"
+        "vi": "Xóa người dùng"
     },
     "Key":{
         "vi": "Key"
@@ -58,17 +61,17 @@
     },
     "Group name":{
         "vi": "Tên nhóm"
-    },
-    "Group detail":{
-        "vi": "Chi tiết nhóm"
-    },
-    "Group edit":{
-        "vi": "Sửa nhóm"
-    },
-    "Group delete":{
-        "vi": "Xóa nhóm"
-    },
+    }, 
     "Description":{
         "vi": "Mô tả"
+    },
+    "Organizations":{
+        "vi": "Tổ chức"
+    },
+    "No.": {
+        "vi": "STT"
+    },
+    "cn": {
+        "vi": "Tên chung"
     }
 }

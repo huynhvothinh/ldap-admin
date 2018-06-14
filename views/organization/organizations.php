@@ -4,12 +4,11 @@ $configs = $_SESSION['config'];
 ?>
 
 <div class="container-fruid">
-    <h2><?php t_('Groups');?></h2>
-    <?php
-        $groupController = new MyGroup($configs);
-        $arr = $groupController->get_list();
-        $arrKeys = $groupController->get_fields_list(); 
-    ?>
+    <?php        
+        $organizationController = new MyOrganization($configs);
+        $arr = $organizationController->get_list();   
+        $arrKeys = $organizationController->get_fields_list();    
+    ?> 
     <table class="table table-striped">
         <thead>
         <tr>
@@ -29,20 +28,16 @@ $configs = $_SESSION['config'];
             <td><?php echo ($index + 1)?></td>
             <?php for($i=0;$i<count($arrKeys);$i++){ ?>                 
                 <td><?php echo getArrayValue($arr[$index], $arrKeys[$i]); ?></td>  
-            <?php } // end for ?>
+            <?php } // end for  ?>
         </tr> 
     <?php
                 } // end if
-            }// end for
+            } // end for
         } // end if
     ?>
     </tbody>
   </table>
 </div>
-
-<?php
-include '../../popup.php';
-?>
 
 <?php
 include '../../footer.php';

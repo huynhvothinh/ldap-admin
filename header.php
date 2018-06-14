@@ -56,13 +56,16 @@ require_once('include.php');
           <a class="nav-link" href="/views/group/groups.php"><?php t_('Groups');?></a>
         </li> 
         <li class="nav-item">
+          <a class="nav-link" href="/views/organization/organizations.php"><?php t_('Organizations');?></a>
+        </li> 
+        <li class="nav-item">
           <a class="nav-link" href="#"><?php t_('Import');?></a>
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="#"><?php t_('Export');?></a>
         </li> 
         <li class="nav-item">
-          <a class="nav-link" href="#"><?php t_('Settings');?></a>
+          <a class="nav-link" href="/views/settings/settings.php"><?php t_('Settings');?></a>
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="/logout.php">| <?php t_('Logout');?></a>

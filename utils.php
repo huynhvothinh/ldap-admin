@@ -15,20 +15,20 @@ function getPost($key){
 }
 function getArrayValue($arr, $key, $level1=true, $default=''){
     if(is_array($arr)){
-        if(isset($arr[$key])){
-            if($level1 == 1){
-                return $arr[$key];
-            }else{
-                if(is_array($arr[$key])){
-                    if(count($arr[$key]) > 0){ 
+        if(isset($arr[$key])){ 
+            // got value
+            if(is_array($arr[$key])){
+                if(count($arr[$key]) > 0){ 
+                    if($level1)
                         return $arr[$key][0];
-                    } else{
-                        return $default;
-                    }
-                }else{
-                    return $arr[$key];
+                    else
+                        return $arr[$key];
+                } else{
+                    return $default;
                 }
-            }
+            }else{
+                return $arr[$key];
+            } 
         }else{
             return $default;
         }

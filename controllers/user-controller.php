@@ -29,6 +29,10 @@ class MyUser{
         }
     }  
 
+    function get_fields_list(){
+        return $this->ldap->configs['fields']['user']['list'];
+    }
+
     function get_fields_detail(){
         return $this->ldap->configs['fields']['user']['detail'];
     }

@@ -1,11 +1,10 @@
 <?php
 include '../../header-blank.php'; 
+$configs = $_SESSION['config']; 
 ?>
 
 <div class="container-fruid">
-    <?php
-        $configs = $_SESSION['config']; 
-        
+    <?php        
         $userController = new MyUser($configs);
         $item = $userController->get_item(getGet('item_key'));      
     ?>    

@@ -1,12 +1,12 @@
 <?php
 include '../../header-blank.php'; 
-
 $configs = $_SESSION['config'];         
-$userController = new MyUser($configs);
-$arrKeys = $userController->get_fields_edit(); 
 ?>
 
 <?php
+$userController = new MyUser($configs);
+$arrKeys = $userController->get_fields_edit(); 
+
 $message = '';
 $itemCode = '';
 $arr = array();
@@ -47,11 +47,13 @@ if(getPost('form_submitted') != NULL){
         <input type="hidden" value="<?php echo $itemCode;?>" name="item_code">
     
         <?php for($i=0;$i<count($arrKeys);$i++){
-            $val = getArrayValue($arr, $arrKeys[$i], false);
+            $key = $arrKeys[$i];
+            $val = getArrayValue($arr, $key);
         ?>
             <div class="form-group">
-                <label for="<?php echo $arrKeys[$i];?>"><?php t_( $arrKeys[$i]);?></label>
-                <input type="text" class="form-control" name="<?php echo $arrKeys[$i];?>" id="<?php echo $arrKeys[$i];?>" value="<?php echo $val;?>">
+                <label for="<?php echo $key;?>"><?php t_( $key);?></label>
+                <input type="text" class="form-control" name="<?php echo $key;?>" 
+                    id="<?php echo $key;?>" value="<?php echo $val; ?>">
             </div>  
         <?php } // end for ?> 
 

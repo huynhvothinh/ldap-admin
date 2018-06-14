@@ -25,13 +25,9 @@ class MyGroup{
         }
     } 
 
-    function get_fields_detail(){
-        return $this->ldap->configs['fields']['group']['detail'];
-    }
-
-    function get_fields_edit(){
-        return $this->ldap->configs['fields']['group']['edit'];
-    }
+    function get_fields_list(){
+        return $this->ldap->configs['fields']['group']['list'];
+    } 
 
     function get_item($id){    
         $filters = '(&(cn=%s)%s)'; 

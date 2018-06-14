@@ -52,19 +52,20 @@ class MyConfig{
         // need to update for window or linux
         'user_filter' => '(objectclass=person)',
         'group_filter' => '(objectclass=groupOfUniqueNames)',
-        
-        // list of suffix to select
-        'admin_account_suffix_arr' => ['', 'CN=Users'],   
+        'organization_filter' => '(ou=*)',   
 
         // FIELDS
         'fields' => [
             'user' => [
+                'list' => ['cn'],
                 'detail' => ['cn', 'mail', 'objectclass'],
                 'edit' => ['cn']
             ],
             'group' => [
-                'detail' => ['cn'],
-                'edit' => ['cn']
+                'list' => ['cn']
+            ],
+            'organization' => [
+                'list' => ['cn']
             ]
         ],
 

@@ -71,6 +71,15 @@ class MyLdap{
             return NULL;
         }
     }
+    function search_root($filters){ 
+        if($this->auth()) {
+            $result = ldap_list($this->ldapconn,$this->configs['base_dn'], $filters);
+            $data = ldap_get_entries($this->ldapconn, $result);
+            return $data;
+        }else{
+            return NULL;
+        }
+    }
     function update($item_key, $entry){ 
         if($this->auth()) {
             try{
