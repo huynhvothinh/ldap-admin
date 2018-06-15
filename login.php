@@ -3,8 +3,14 @@ include 'header.php';
 ?>
 
 <?php
+$dbController = new MyDB(
+  MyConfig::$db_configs['servername'],
+  MyConfig::$db_configs['username'],
+  MyConfig::$db_configs['password'],
+  MyConfig::$db_configs['database']
+); 
 $settingController = new MySetting();
-$default_configs = MyConfig::$default_configs;
+$default_configs = (MyConfig::$load_db) ? $dbController->loadDBConfigs(MyConfig::$default_configs) : MyConfig::$default_configs;
 
 $configs = [
   'admin_username' => '',
@@ -28,18 +34,21 @@ if($value != NULL){
 $value = getPost('admin_account_suffix'); 
 if($value != NULL){
   $configs['admin_account_suffix'] = $value;
-}else{
-  $configs['admin_account_suffix'] = '';
 }
 
 // ldap auth
 $message = '';
 if(getPost('form_submitted') != NULL){
-  $ldapController = new MyLdap($configs);
+  // update config  
+  $default_configs['admin_username'] = $configs['admin_username'];
+  $default_configs['admin_password'] = $configs['admin_password'];
+  $default_configs['admin_account_suffix'] = $configs['admin_account_suffix'];
+  $ldapController = new MyLdap($default_configs); 
+
   if($ldapController->auth()){
     // session
     session_start();
-    $_SESSION["config"] = $configs;
+    $_SESSION["config"] = $default_configs;
 
     // 
     header("Location: index.php"); /* Redirect browser */
@@ -76,7 +85,7 @@ if(getPost('form_submitted') != NULL){
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
           <div class="dropdown-menu dropdown-menu-right"> 
             <?php 
-              $account_suffix_arr = $settingController->get_account_suffix();
+              $account_suffix_arr = $default_configs['admin_account_suffix_arr']; // $settingController->get_account_suffix();
               if(is_array($account_suffix_arr)){
                 foreach($account_suffix_arr as $suffix){ 
                   echo '<a class="dropdown-item" href="#" data-value="'.$suffix.'">'.$suffix.'</a>'; 

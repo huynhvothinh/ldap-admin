@@ -7,7 +7,7 @@ $configs = $_SESSION['config'];
     <h2><?php t_('Users');?></h2>
     <?php 
         $userController = new MyUser($configs);
-        $arr = $userController->get_list();
+        $arr = $userController->get_list(); 
         $arrKeys = $userController->get_fields_list();    
     ?>
     <table class="table table-striped">

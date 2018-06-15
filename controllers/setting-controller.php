@@ -18,5 +18,6 @@ class MySetting{
         }
         file_put_contents(dirname(__FILE__).'/../config/account_suffix.json', $data);  
     }
+
 } 
 ?>

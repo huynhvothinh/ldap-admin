@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/config.php'); 
 require_once(dirname(__FILE__).'/utils.php');
+require_once(dirname(__FILE__).'/controllers/db-controller.php');
 require_once(dirname(__FILE__).'/controllers/ldap-controller.php');
 require_once(dirname(__FILE__).'/controllers/setting-controller.php');
 require_once(dirname(__FILE__).'/controllers/user-controller.php');
