@@ -1,6 +1,5 @@
 <?php
 require_once(dirname(__FILE__).'/../config.php');
-require_once(dirname(__FILE__).'/db-controller.php');
 
 class MyLdap{
     public $ldapconn = NULL;
@@ -8,14 +7,6 @@ class MyLdap{
     public $configs = NULL; 
 
     function __construct($configs){
-        // // ldap configs 
-        // $default_configs = MyConfig::$default_configs;
-
-        // // update from session
-        // $default_configs['admin_username'] = $configs['admin_username'];
-        // $default_configs['admin_password'] = $configs['admin_password'];
-        // $default_configs['admin_account_suffix'] = $configs['admin_account_suffix'];
-
         $this->configs = $configs;
     }
 

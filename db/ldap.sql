@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-06-15 12:37:45
+Date: 2018-06-19 11:30:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,13 +32,15 @@ CREATE TABLE `basedn` (
   `GROUP_FILTER` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ORGANIZATION_FILTER` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`BASEDN_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of basedn
 -- ----------------------------
-INSERT INTO `basedn` VALUES ('1', 'dc=example,dc=com', 'ldap.forumsys.com', 'UID=', null, '[\"OU=mathematicians\",\"OU=scientists\",\"OU=chemists\"]', '', '\0', '389', '(objectclass=person)', '(objectclass=groupOfUniqueNames)', '(ou=*)');
-INSERT INTO `basedn` VALUES ('3', 'DC=TINHVAN,DC=VN', 'AD-TINHVANVN', 'CN=', null, null, '\0', '', '636', '(objectclass=person)', '(objectclass=group)', '(|(cn=*)(ou=*))');
+INSERT INTO `basedn` VALUES ('1', 'dc=example,dc=com', 'ldap.forumsys.com', 'UID=', '', '[\"OU=chemists\"]', '', '\0', '389', '(objectclass=person)', '(objectclass=groupOfUniqueNames)', '(ou=*)');
+INSERT INTO `basedn` VALUES ('3', 'DC=TINHVAN,DC=VN', 'AD-TINHVANVN', 'CN=', null, null, '', '', '636', '(objectclass=person)', '(objectclass=group)', '(|(cn=*)(ou=*))');
+INSERT INTO `basedn` VALUES ('7', 'dc=example,dc=com2', 'ldap.forumsys.com', 'UID=', '', '[]', '', '\0', '389', '', '', '');
+INSERT INTO `basedn` VALUES ('8', 'dc=example,dc=com3', 'ldap.forumsys.com', 'UID=', '', '[]', '', '\0', '389', '', '', '');
 
 -- ----------------------------
 -- Table structure for `objects`
@@ -70,18 +72,16 @@ BEGIN
 		IF (p_base_dn IS NOT NULL and p_base_dn != '') THEN
 
 				SET @id = 0;
-
-				SET p_base_dn = TRIM(p_base_dn);
 			
-				SELECT ID
+				SELECT BASEDN_ID
 				INTO @id
 				FROM basedn
-				WHERE BASE_DN = p_base_dn;
+				WHERE BASEDN_CODE = p_base_dn;
 
 				IF(@id = 0) THEN 
 					
 						INSERT INTO basedn (
-							BASE_DN
+							BASEDN_CODE
 						)
 						VALUES (
 							p_base_dn
@@ -95,15 +95,67 @@ END
 DELIMITER ;
 
 -- ----------------------------
+-- Procedure structure for `basedn_edit`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `basedn_edit`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `basedn_edit`(IN p_base_dn VARCHAR(255),
+	IN p_host VARCHAR(255),
+	IN p_account_prefix VARCHAR(255),
+	IN p_account_suffix VARCHAR(255),
+	IN p_account_suffix_arr VARCHAR(1000),
+	IN p_active bit(1),
+	IN p_ssl BIT(1),
+	IN p_port INT(11),
+	IN p_user_filter VARCHAR(255),
+	IN p_group_filter VARCHAR(255),
+	IN p_organization_filter VARCHAR(255))
+BEGIN  
+
+	UPDATE basedn
+	SET 
+		`HOST` = p_host,
+		ACCOUNT_PREFIX = p_account_prefix,
+		ACCOUNT_SUFFIX = p_account_suffix,
+		ACCOUNT_SUFFIX_ARR = p_account_suffix_arr,
+		ACTIVE = p_active,
+		`SSL` = p_ssl,
+		`PORT` = p_port,
+		USER_FILTER = p_user_filter,
+		GROUP_FILTER = p_group_filter,
+		ORGANIZATION_FILTER = p_organization_filter
+	WHERE BASEDN_CODE = p_base_dn;
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
+-- Procedure structure for `basedn_get`
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `basedn_get`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `basedn_get`(IN p_base_dn VARCHAR(255))
+BEGIN  
+			
+		SELECT * 
+		FROM basedn
+		WHERE BASEDN_CODE = p_base_dn; 
+
+END
+;;
+DELIMITER ;
+
+-- ----------------------------
 -- Procedure structure for `basedn_list`
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `basedn_list`;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `basedn_list`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `basedn_list`(in p_active bit(1))
 BEGIN
 	SELECT *
 	FROM basedn
-	WHERE ACTIVE=1;
+	WHERE ACTIVE=p_active ;
 END
 ;;
 DELIMITER ;

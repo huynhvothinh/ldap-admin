@@ -2,20 +2,12 @@
 require_once(dirname(__FILE__).'/../config.php');
 
 class MyUser{
-    public $ldap = NULL;
-    public $db = NULL;
+    public $ldap = NULL; 
     public $user_id_key = '';
 
     function __construct($configs){ 
         $this->ldap = new MyLdap($configs);
-        $this->user_id_key = strtolower(str_replace('=', '', $this->ldap->configs['admin_account_prefix']));
-        
-        $this->db = new MyDB(
-            MyConfig::$db_configs['servername'],
-            MyConfig::$db_configs['username'],
-            MyConfig::$db_configs['password'],
-            MyConfig::$db_configs['database']
-        ); 
+        $this->user_id_key = strtolower(str_replace('=', '', $this->ldap->configs['admin_account_prefix'])); 
     } 
 
     function sort($list){
@@ -82,30 +74,6 @@ class MyUser{
 
     function update_item($item_key, $entry){        
         return $this->ldap->update($item_key, $entry);
-    }
-
-    function sync_users(){        
-        if($this->db->connect()){
-            // $sql = "call basedn_list()";
-            // $result = mysqli_query($this->conn, $sql);  
-
-            // while($row = mysqli_fetch_array($result)){
-            //     $default_configs['domain_controllers'] = $row['HOST'];
-            //     $default_configs['base_dn'] = $row['BASEDN_CODE'];
-            //     $default_configs['port'] = $row['PORT'];
-            //     $default_configs['admin_account_prefix'] = $row['ACCOUNT_PREFIX'];
-            //     $default_configs['admin_account_suffix'] = $row['ACCOUNT_SUFFIX'];
-            //     $default_configs['admin_account_suffix_arr'] = json_decode($row['ACCOUNT_SUFFIX_ARR']);
-            //     $default_configs['use_ssl'] = $row['SSL'];
-            //     $default_configs['user_filter'] = $row['USER_FILTER'];
-            //     $default_configs['group_filter'] = $row['GROUP_FILTER'];
-            //     $default_configs['organization_filter'] = $row['ORGANIZATION_FILTER'];
-
-            //     break;
-            // } 
-
-            $this->db->conn->close();
-        }
     }
 }
 // 

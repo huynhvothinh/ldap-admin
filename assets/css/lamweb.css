@@ -1,3 +1,6 @@
+body{
+    padding-bottom: 50px;
+}
 .login form{
     margin-left: auto;
     margin-right: auto;
@@ -22,6 +25,7 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    padding: 15px;
 }
 .modal-dialog{
     max-width: 100%;
@@ -30,12 +34,22 @@
     margin-top: 0px;
     margin-bottom: 0px;
 }
+.modal-content{
+    height: 100%;
+}
+#loginModal .modal-dialog{
+    max-width: 60%;
+    max-height: initial;
+}
+#loginModal .modal-content{
+    height: initial;
+}
+input[type="checkbox"]{
+    width: initial;
+}
 .btn{
     /* float: right; */
     margin-right: 15px;
-}
-.modal-content{
-    height: 100%;
 }
 .footer{
     position: fixed;
@@ -70,4 +84,14 @@
 }
 .text-dropdown .dropdown .btn{
     margin-right: 0px;
+}
+.basedn{
+    background-color: gray;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.settings form{
+    padding: 15px;
+    max-width: 600px;
 }

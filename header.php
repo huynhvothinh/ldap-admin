@@ -45,7 +45,7 @@ require_once('include.php');
 
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav"> 
         <li class="nav-item">
           <a class="nav-link" href="/index.php"><?php t_('My Profile');?></a>
         </li>
@@ -73,6 +73,15 @@ require_once('include.php');
       </ul>
     </div>
   </nav> 
+</div>
+<div class="basedn">
+    <?php
+    {
+      $configs = $_SESSION['config']; 
+      echo t_('Base DN: ');
+      echo $configs['base_dn'];
+    }
+    ?>
 </div>
 <?php
   }

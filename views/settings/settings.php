@@ -1,28 +1,39 @@
 <?php
 include '../../header.php'; 
-$configs = $_SESSION['config']; 
+$configs = $_SESSION['config'];         
 ?>
 
-<div class="container-fruid">
-    <h2><?php t_('Settings');?></h2>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link group-detail-toggle" href="#" data-href="/views/settings/account_suffix.php"
-                    data-title="<?php t_('Account Suffix');?>" data-toggle="modal" data-target="#myModal"><?php t_('Account Suffix');?></a>
-            </li>  
-        </ul>
-    </nav>
-    <?php
-        $userController = new MyUser($configs);
-        $arr = $userController->get_list();
-    ?>
+<div class="container-fruid settings">
+    <h2><?php t_('Settings');?></h2> 
+    
     <table class="table table-striped">
-        <thead> 
+        <thead>
+        <tr>             
+            <th>Setting</th>    
+            <th></th>
+        </tr>
         </thead>
         <tbody> 
-        </tbody>
-  </table>
+        <tr>
+            <td><?php t_('Configs');?></td> 
+            <td>
+                <a href="#" data-href="configs.php" data-title="<?php t_('Configs');?>" 
+                    data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Configs');?>
+                </a>
+            </td> 
+        </tr>  
+        <tr>
+            <td><?php t_('Permissions');?></td> 
+            <td>
+                <a href="#" data-href="permissions.php" data-title="<?php t_('Permissions');?>" 
+                    data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Permissions');?>
+                </a>
+            </td> 
+        </tr>   
+    </tbody>
+  </table> 
 </div>
 
 <?php
@@ -30,5 +41,5 @@ include '../../popup.php';
 ?>
 
 <?php
-include '../../footer.php';
+include '../../footer-blank.php';
 ?>
