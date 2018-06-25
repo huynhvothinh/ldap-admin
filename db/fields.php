@@ -1,5 +1,5 @@
 <?php
-class MyBaseDNDB{
+class MyFieldsDB{
     public $db = NULL;     
 
     function __construct(){ 
@@ -9,17 +9,13 @@ class MyBaseDNDB{
             MyConfig::$db_configs['password'],
             MyConfig::$db_configs['database']
         ); 
-    } 
+    }
 
-    function get_list($active){ 
+    function get_list($base_dn, $type){ 
         $arr = [];
 
         if($this->db->connect()){
-            $sql = "call basedn_list(1)";
-            if(!$active){
-                $sql =  "call basedn_list(0)";               
-            }
-
+            $sql = "call fields_list('$base_dn','$type')";
             $result = mysqli_query($this->db->conn, $sql);  
 
             while($row = mysqli_fetch_array($result)){ 
@@ -32,14 +28,12 @@ class MyBaseDNDB{
         return $arr;
     }
 
-    function get_item($basedn){ 
+    function get_item($base_dn, $type, $field_code){ 
         $arr = [];
 
         if($this->db->connect()){
             
-            $basedn = mysqli_real_escape_string($this->db->conn,$basedn);
-            $sql = "call basedn_get('$basedn');";  
-
+            $sql = "call fields_get('$base_dn', '$type', '$field_code');";   
             $result = mysqli_query($this->db->conn, $sql);  
 
             while($row = mysqli_fetch_array($result)){ 
@@ -55,32 +49,49 @@ class MyBaseDNDB{
             return NULL;
     }
 
-    function add($basedn){  
+    function add($base_dn, $type, $field_code, $field_name, $active){  
+        $arr = [];
+
         if($this->db->connect()){            
-            $sql = "call basedn_add('%s');";
-            $sql = sprintf($sql, $basedn);
-            mysqli_query($this->db->conn, $sql);  
+            $sql = "call fields_add('$base_dn', '$type', '$field_code', '$field_name', $active);"; 
+            $result = mysqli_query($this->db->conn, $sql);  
+
+            while($row = mysqli_fetch_array($result)){ 
+                array_push($arr, $row);
+            } 
+
             $this->db->conn->close();
         }
+        
+        if(count($arr) > 0)
+            return $arr[0]['STATUS'];
+        else
+            return NULL;
     }
 
     function edit($item){
         if($this->db->connect()){
             if($item){ 
-                $sql = "call basedn_edit('%s','%s','%s','%s','%s',%d,%d,%d,'%s','%s','%s','%s');";
+                $sql = "call fields_edit('%s','%s', %s);";
                 $sql = sprintf($sql, 
-                    $item['BASEDN_CODE'],
-                    $item['HOST'],
-                    $item['ACCOUNT_PREFIX'],
-                    $item['ACCOUNT_SUFFIX'],
-                    $item['ACCOUNT_SUFFIX_ARR'],
-                    $item['ACTIVE'],
-                    $item['SSL'],
-                    $item['PORT'],
-                    $item['USER_FILTER'],
-                    $item['GROUP_FILTER'],
-                    $item['ORGANIZATION_FILTER'],
-                    $item['PERMISSIONS']
+                    $item['FIELD_ID'],
+                    $item['FIELD_NAME'],
+                    $item['ACTIVE']
+                );
+                
+                mysqli_query($this->db->conn, $sql);  
+
+                $this->db->conn->close();
+            }
+        }
+    }
+
+    function delete($field_id){
+        if($this->db->connect()){
+            if($field_id){ 
+                $sql = "call fields_delete('%s');";
+                $sql = sprintf($sql, 
+                    $field_id
                 );
                 
                 mysqli_query($this->db->conn, $sql);  
@@ -90,5 +101,4 @@ class MyBaseDNDB{
         }
     }
 }
-
 ?>

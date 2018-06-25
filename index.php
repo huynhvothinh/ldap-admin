@@ -45,7 +45,7 @@ include 'header.php';
             $val = getArrayValue($arr, $arrKeys[$i]);
         ?> 
             <tr>
-                <td><strong><?php echo $arrKeys[$i];?></strong></td>
+                <td><strong><?php t_($arrKeys[$i]);?></strong></td>
                 <td><?php echo echoArr($val);?></td> 
             </tr>    
         <?php } // end for ?>

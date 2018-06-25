@@ -43,9 +43,11 @@ class MyConfig{
         'admin_account_suffix_arr' => [],
 
         // The global LDAP operation timeout limit in seconds.
+        // NO CHANGE
         'timeout' => 5,
 
         // The LDAP version to utilize.
+        // NO CHANGE
         'version' => 3,
 
         // Whether or not to use SSL when connecting to your hosts.
@@ -74,29 +76,30 @@ class MyConfig{
         // FIELDS
         'fields' => [
             'user' => [
-                'list' => ['cn'],
-                'detail' => ['cn', 'mail', 'objectclass'],
+                'list' => ['cn', 'distinguishedname'],
+                'detail' => ['cn', 'distinguishedname'],
                 'edit' => ['cn']
             ],
             'group' => [
-                'list' => ['cn']
+                'list' => ['cn', 'distinguishedname']
             ],
             'organization' => [
-                'list' => ['cn']
+                'list' => ['cn', 'distinguishedname']
             ]
         ],
 
         // Permissions
-        'permissions' => [
-            'supper' => [
-                'users' => [],
-                'groups' => []
-            ],
-            'admin' => [
-                'users' => [],
-                'groups' => []
-            ]
-        ]
+        'root_permission_users' => ['euler']
+        // 'permissions' => [
+        //     'super' => [
+        //         'users' => [],
+        //         'groups' => []
+        //     ],
+        //     'admin' => [
+        //         'users' => [],
+        //         'groups' => []
+        //     ]
+        // ]
     ];
 }
 ?>

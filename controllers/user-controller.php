@@ -57,19 +57,31 @@ class MyUser{
         $filters = sprintf($filters, $this->user_id_key, $id, $this->ldap->configs['user_filter']); 
 
         $results = $this->ldap->search($filters);
-        if(is_array($results) && count($results)>0)
+        if(is_array($results) && count($results)>0){
+            if(!isset($results[0]['distinguishedname']) && isset($results[0]['uid'])){
+                $results[0]['distinguishedname'] = [];
+                array_push($results[0]['distinguishedname'], 'uid='.$results[0]['uid'][0].','.$this->ldap->configs['base_dn']);
+            }
             return $results[0];
-        else
+        }else{
             return NULL; 
+        }
     }
     
     function get_list(){  
         $filters = $this->ldap->configs['user_filter'];
         $results = $this->ldap->search($filters); 
-        if($results)
+        if($results){
+            for($i=0;$i<count($results);$i++){
+                if(!isset($results[$i]['distinguishedname']) && isset($results[$i]['uid'])){
+                    $results[$i]['distinguishedname'] = [];
+                    array_push($results[$i]['distinguishedname'], 'uid='.$results[$i]['uid'][0].','.$this->ldap->configs['base_dn']);
+                }
+            }
             return $this->sort($results);
-        else
+        }else{
             return NULL; 
+        }
     } 
 
     function update_item($item_key, $entry){        

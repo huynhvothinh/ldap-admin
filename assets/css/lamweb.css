@@ -1,6 +1,9 @@
 body{
     padding-bottom: 50px;
 }
+.container-fruid{
+    max-width: 1366px;
+}
 .login form{
     margin-left: auto;
     margin-right: auto;
@@ -26,6 +29,10 @@ body{
     margin-left: auto;
     margin-right: auto;
     padding: 15px;
+}
+.modal.show{    
+    max-width: 1366px;
+    padding-right:0px !important;
 }
 .modal-dialog{
     max-width: 100%;
@@ -56,7 +63,7 @@ input[type="checkbox"]{
     bottom: 0px;
     left: 0px;
 }
-.table input{
+.table input[type="text"]{
     width: 100%;
 }
 .loader {
@@ -94,4 +101,14 @@ input[type="checkbox"]{
 .settings form{
     padding: 15px;
     max-width: 600px;
+}
+.custom-fields form{
+    max-width: 600px;
+}
+.custom-fields .form-group{
+    position: relative;
+    margin-bottom: 10px;
+}
+.custom-fields .btn{
+    padding: 3px 6px;
 }

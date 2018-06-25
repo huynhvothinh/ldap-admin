@@ -15,10 +15,17 @@ class MyOrganization{
         $filters = $this->ldap->configs['organization_filter'];
 
         $results = $this->ldap->search_root($filters);
-        if(is_array($results) && count($results)>0)
+        if($results){
+            for($i=0;$i<count($results);$i++){
+                if(!isset($results[$i]['distinguishedname']) && isset($results[$i]['cn'])){
+                    $results[$i]['distinguishedname'] = [];
+                    array_push($results[$i]['distinguishedname'], 'cn='.$results[$i]['cn'][0].','.$this->ldap->configs['base_dn']);
+                }
+            }
             return $results;
-        else
-            return NULL;  
+        }else{
+            return NULL; 
+        }
     } 
 
     function get_list_for_suffix(){

@@ -19,19 +19,28 @@ $configs = $_SESSION['config'];
             <td>
                 <a href="#" data-href="configs.php" data-title="<?php t_('Configs');?>" 
                     data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    <?php t_('Configs');?>
+                    <?php t_('Change');?>
                 </a>
             </td> 
-        </tr>  
+        </tr>    
+        <tr>
+            <td><?php t_('User fields');?></td> 
+            <td>
+                <a href="#" data-href="custom-fields.php?type=user" data-title="<?php t_('User fields');?>" 
+                    data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Change');?>
+                </a>
+            </td> 
+        </tr>   
         <tr>
             <td><?php t_('Permissions');?></td> 
             <td>
                 <a href="#" data-href="permissions.php" data-title="<?php t_('Permissions');?>" 
                     data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
-                    <?php t_('Permissions');?>
+                    <?php t_('Change');?>
                 </a>
             </td> 
-        </tr>   
+        </tr> 
     </tbody>
   </table> 
 </div>
@@ -41,5 +50,5 @@ include '../../popup.php';
 ?>
 
 <?php
-include '../../footer-blank.php';
+include '../../footer.php';
 ?>

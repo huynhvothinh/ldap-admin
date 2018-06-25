@@ -33,20 +33,32 @@ class MyGroup{
         $filters = '(&(cn=%s)%s)'; 
         $filters = sprintf($filters, $id, $this->ldap->configs['group_filter']); 
         
-        $results = $this->ldap->search($filters);
-        if($results)
+        $results = $this->ldap->search($filters);        
+        if(is_array($results) && count($results)>0){
+            if(!isset($results[0]['distinguishedname']) && isset($results[0]['cn'])){
+                $results[0]['distinguishedname'] = [];
+                array_push($results[0]['distinguishedname'], 'cn='.$results[0]['cn'][0].','.$this->ldap->configs['base_dn']);
+            }
             return $results[0];
-        else
+        }else{
             return NULL; 
+        }
     }
 
     function get_list(){      
         $filters = $this->ldap->configs['group_filter']; 
         $results = $this->ldap->search($filters);
-        if($results)
+        if($results){
+            for($i=0;$i<count($results);$i++){
+                if(!isset($results[$i]['distinguishedname']) && isset($results[$i]['cn'])){
+                    $results[$i]['distinguishedname'] = [];
+                    array_push($results[$i]['distinguishedname'], 'cn='.$results[$i]['cn'][0].','.$this->ldap->configs['base_dn']);
+                }
+            }
             return $this->sort($results);
-        else
+        }else{
             return NULL; 
+        }
     } 
 }
 // 

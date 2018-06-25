@@ -1,32 +1,11 @@
 <?php
+require_once(dirname(__FILE__).'/../db/fields.php');
+
 class MySetting{
-
-    function get_account_suffix($base_dn){
-        $baseDN = new MyBaseDNDB();
-        $item =$baseDN->get_item($base_dn);
-        if($item){
-            $data = $item['ACCOUNT_SUFFIX_ARR'];
-            $arr = json_decode($data);
-            if($arr)
-                return $arr;
-            else
-                return [];
-        }else{
-            return [];
-        }
-    }
+    public $custom_fields = NULL;
     
-    function save_account_suffix($base_dn, $data){
-        if(!$data){
-            $data = "[]";
-        }
-
-        $baseDN = new MyBaseDNDB();        
-        $item = $baseDN->get_item($base_dn);
-        if($item){
-            $item['ACCOUNT_SUFFIX_ARR'] = $data;
-            $baseDN->edit($item);
-        }
+    function __construct(){ 
+        $this->custom_fields = new MyFieldsDB(); 
     }
 
     function save_db_configs($default_configs){     
@@ -85,6 +64,54 @@ class MySetting{
         }
 
         return $default_configs;
+    }
+
+    function save_db_permissisons($base_dn, $permissions){     
+        $baseDN = new MyBaseDNDB(); 
+        // get
+        $item = $baseDN->get_item($base_dn); 
+
+        if($item){ 
+            $item['PERMISSIONS'] = json_encode($permissions);
+            
+            $baseDN->edit($item);
+        }
+    }
+    function load_db_permissions($base_dn){      
+        $baseDN = new MyBaseDNDB();
+        $item = NULL;
+
+        if($base_dn){             
+            $item = $baseDN->get_item($base_dn);
+        }else{
+            $arr = $baseDN->get_list(true);
+            if(count($arr > 0)){
+                $item = $arr[0];
+            }
+        }
+
+        $permissions = [
+            'super' => [
+                'users' => [],
+                'groups' => []
+            ],
+            'admin' => [
+                'users' => [],
+                'groups' => []
+            ]
+        ];
+
+        if($item){
+            $per = json_decode($item['PERMISSIONS']); 
+            if($per){
+                $permissions['super']['users'] = $per->super->users;
+                $permissions['super']['groups'] = $per->super->groups;
+                $permissions['admin']['users'] = $per->admin->users;
+                $permissions['admin']['groups'] = $per->admin->groups;
+            }
+        }
+
+        return $permissions;
     }
 } 
 ?>

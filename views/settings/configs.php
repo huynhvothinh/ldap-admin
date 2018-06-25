@@ -16,6 +16,7 @@ $default_configs = $settingController->load_db_configs($default_configs, $config
 $default_configs = get_post_configs($default_configs);
 
 if(getPost('form_submitted') != NULL){ 
+    // no edit basedn
     $settingController->save_db_configs($default_configs);
     $message = t_value('Successfully');
 }
@@ -34,11 +35,6 @@ if(getPost('form_submitted') != NULL){
         <div class="form-group">
             <label for="host"><?php t_('Host');?></label>
             <input type="text" class="form-control" name="domain_controllers" id="domain_controllers" value="<?php echo $default_configs['domain_controllers'];?>">
-        </div> 
-        <div class="form-group">
-            <label for="base_dn"><?php t_('Base DN');?></label>   
-            <input type="text" name="base_dn" id="base_dn" 
-                class="form-control" value="<?php echo $default_configs['base_dn']; ?>">  
         </div> 
         <div class="form-group">
             <label for="admin_account_prefix"><?php t_('Account prefix');?></label>
@@ -110,11 +106,6 @@ function get_post_configs($configs){
         $configs['domain_controllers'] = $value;
     }
   
-    $value = getPost('base_dn'); 
-    if($value != NULL){
-        $configs['base_dn'] = $value;
-    }
-  
     $value = getPost('port'); 
     if($value != NULL){
         $configs['port'] = $value;
@@ -122,11 +113,9 @@ function get_post_configs($configs){
   
     $value = getPost('use_ssl'); 
     if($value == '1'){
-        $configs['use_ssl'] = true;
-    }else{
-        $configs['use_ssl'] = false;
-    }
-
+        $configs['use_ssl'] = $value;
+    } 
+    
     $value = getPost('user_filter'); 
     if($value != NULL){
         $configs['user_filter'] = $value;

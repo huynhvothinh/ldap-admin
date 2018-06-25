@@ -3,6 +3,7 @@ require_once(dirname(__FILE__).'/config.php');
 require_once(dirname(__FILE__).'/utils.php');
 require_once(dirname(__FILE__).'/db/db.php');
 require_once(dirname(__FILE__).'/db/basedn.php');
+require_once(dirname(__FILE__).'/db/fields.php');
 require_once(dirname(__FILE__).'/db/objects.php');
 require_once(dirname(__FILE__).'/controllers/ldap-controller.php');
 require_once(dirname(__FILE__).'/controllers/setting-controller.php');
