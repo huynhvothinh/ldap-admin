@@ -11,11 +11,11 @@ class MyFieldsDB{
         ); 
     }
 
-    function get_list($base_dn, $type){ 
+    function get_list($base_dn, $type, $active=-1){ 
         $arr = [];
 
         if($this->db->connect()){
-            $sql = "call fields_list('$base_dn','$type')";
+            $sql = "call fields_list('$base_dn','$type', $active)";
             $result = mysqli_query($this->db->conn, $sql);  
 
             while($row = mysqli_fetch_array($result)){ 

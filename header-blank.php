@@ -18,6 +18,12 @@
 
 <?php 
 require_once('include.php'); 
+// 
+$configs = $_SESSION['config']; 
+$PERMISSION_CONTROLLER = new MyPermission($configs);
+$userController = new MyUser($configs); 
+$user = $userController->get_item($configs['admin_username']);    
+$USER_PERMISSION_KEY = $PERMISSION_CONTROLLER->get_user_permission($configs['base_dn'], $user); 
 ?>
 
 <!DOCTYPE html>

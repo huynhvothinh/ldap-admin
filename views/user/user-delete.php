@@ -3,6 +3,14 @@ include '../../header-blank.php';
 $configs = $_SESSION['config']; 
 ?>
 
+<?php
+    if(!$PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){
+        header("Location: /403.php"); /* Redirect browser */
+        exit();
+    }      
+?>
+
+
 <div class="container-fruid">
     <?php        
         $userController = new MyUser($configs);

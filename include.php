@@ -10,5 +10,6 @@ require_once(dirname(__FILE__).'/controllers/setting-controller.php');
 require_once(dirname(__FILE__).'/controllers/user-controller.php');
 require_once(dirname(__FILE__).'/controllers/group-controller.php');
 require_once(dirname(__FILE__).'/controllers/organization-controller.php');
+require_once(dirname(__FILE__).'/controllers/permission-controller.php'); 
 require_once(dirname(__FILE__).'/controllers/translate-controller.php'); 
 ?>

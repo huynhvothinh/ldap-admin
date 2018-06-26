@@ -3,6 +3,13 @@ include '../../header.php';
 $configs = $_SESSION['config'];
 ?>
 
+<?php
+    if(!$PERMISSION_CONTROLLER->check_admin($USER_PERMISSION_KEY)){
+        header("Location: /403.php"); /* Redirect browser */
+        exit();
+    }      
+?>
+
 <div class="container-fruid">
     <h2><?php t_('Users');?></h2>
     <?php 
@@ -10,6 +17,18 @@ $configs = $_SESSION['config'];
         $arr = $userController->get_list(); 
         $arrKeys = $userController->get_fields_list();    
     ?>
+
+    <?php if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){?>
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link group-detail-toggle" href="#" data-href="/views/user/user-add.php" 
+                        data-title="<?php t_('Add');?>" data-toggle="modal" data-target="#myModal"><?php t_('Add');?></a>
+                </li>   
+            </ul>
+        </nav>
+    <?php } // end if?>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -41,16 +60,23 @@ $configs = $_SESSION['config'];
                 <a href="#" data-href="user-detail.php?item_key=<?php echo $uid; ?>" 
                     data-title="<?php t_('User detail');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php t_('View');?>
-                </a> | 
+                </a>
+                
+                <?php if($PERMISSION_CONTROLLER->check_admin($USER_PERMISSION_KEY)){?>
+                | 
                 <a href="#" data-href="user-edit.php?item_key=<?php echo $uid; ?>" 
                     data-title="<?php t_('Edit user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php t_('Edit');?>
-                </a> | 
+                </a> 
+                <?php  } // end if ?>
 
+                <?php if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){?>
+                |
                 <a href="#" data-href="user-delete.php?item_key=<?php echo $uid; ?>" 
                     data-title="<?php t_('Delete user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php t_('Delete');?>
                 </a>
+                <?php  } // end if ?>
             </td> 
         </tr> 
     <?php

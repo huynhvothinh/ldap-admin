@@ -4,10 +4,12 @@ require_once(dirname(__FILE__).'/../config.php');
 class MyUser{
     public $ldap = NULL; 
     public $user_id_key = '';
+    public $user_object = NULL;
 
     function __construct($configs){ 
         $this->ldap = new MyLdap($configs);
         $this->user_id_key = strtolower(str_replace('=', '', $this->ldap->configs['admin_account_prefix'])); 
+        $this->user_object = new MyObjectsDB();
     } 
 
     function sort($list){
@@ -42,6 +44,11 @@ class MyUser{
     function get_fields_edit(){
         return $this->ldap->configs['fields']['user']['edit'];
     }
+
+    function get_custom_fields(){
+        $fields = new MyFieldsDB();
+        return $fields->get_list($this->ldap->configs['base_dn'], 'USER', 1); 
+    }
     
     function get_object_dn($item){
         $arr = (array)$item;
@@ -61,6 +68,9 @@ class MyUser{
             if(!isset($results[0]['distinguishedname']) && isset($results[0]['uid'])){
                 $results[0]['distinguishedname'] = [];
                 array_push($results[0]['distinguishedname'], 'uid='.$results[0]['uid'][0].','.$this->ldap->configs['base_dn']);
+                $results[0]['user_key'] = $results[0]['uid'][0];
+            }else{
+                $results[0]['user_key'] = $results[0]['cn'][0];
             }
             return $results[0];
         }else{
@@ -82,11 +92,7 @@ class MyUser{
         }else{
             return NULL; 
         }
-    } 
-
-    function update_item($item_key, $entry){        
-        return $this->ldap->update($item_key, $entry);
-    }
+    }  
 }
 // 
 function compareUserUID($a, $b) {

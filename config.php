@@ -77,7 +77,7 @@ class MyConfig{
         'fields' => [
             'user' => [
                 'list' => ['cn', 'distinguishedname'],
-                'detail' => ['cn', 'distinguishedname'],
+                'detail' => ['user_key', 'cn', 'distinguishedname'],
                 'edit' => ['cn']
             ],
             'group' => [
@@ -89,7 +89,7 @@ class MyConfig{
         ],
 
         // Permissions
-        'root_permission_users' => ['euler']
+        'super_permission_users' => ['euler']
         // 'permissions' => [
         //     'super' => [
         //         'users' => [],

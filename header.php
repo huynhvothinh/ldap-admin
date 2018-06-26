@@ -35,6 +35,12 @@ require_once('include.php');
 <body>
 <?php
   if($file != 'login.php'){  
+    $configs = $_SESSION['config']; 
+    // 
+    $PERMISSION_CONTROLLER = new MyPermission($configs);
+    $userController = new MyUser($configs); 
+    $user = $userController->get_item($configs['admin_username']);    
+    $USER_PERMISSION_KEY = $PERMISSION_CONTROLLER->get_user_permission($configs['base_dn'], $user); 
 ?>
 <div class="container-fruid"> 
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -49,6 +55,8 @@ require_once('include.php');
         <li class="nav-item">
           <a class="nav-link" href="/index.php"><?php t_('My Profile');?></a>
         </li>
+
+      <?php if($PERMISSION_CONTROLLER->check_admin($USER_PERMISSION_KEY)){?>
         <li class="nav-item">
           <a class="nav-link" href="/views/user/users.php"><?php t_('Users');?></a>
         </li>
@@ -58,6 +66,9 @@ require_once('include.php');
         <li class="nav-item">
           <a class="nav-link" href="/views/organization/organizations.php"><?php t_('Organizations');?></a>
         </li> 
+      <?php } // end if ?>
+
+      <?php if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){?>
         <li class="nav-item">
           <a class="nav-link" href="/views/settings/settings.php">| <?php t_('Settings');?></a>
         </li> 
@@ -67,6 +78,8 @@ require_once('include.php');
         <li class="nav-item">
           <a class="nav-link" href="#"><?php t_('Export');?></a>
         </li> 
+      <?php }// end if?>
+      
         <li class="nav-item">
           <a class="nav-link" href="/logout.php">| <?php t_('Logout');?></a>
         </li> 
@@ -77,12 +90,11 @@ require_once('include.php');
 <div class="basedn">
     <?php
     {
-      $configs = $_SESSION['config']; 
       echo t_('Base DN: ');
       echo $configs['base_dn'];
     }
     ?>
 </div>
 <?php
-  }
+  } // end if
 ?>

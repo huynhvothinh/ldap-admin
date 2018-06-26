@@ -3,7 +3,15 @@ include '../../header.php';
 $configs = $_SESSION['config']; 
 ?>
 
+<?php
+    if(!$PERMISSION_CONTROLLER->check_admin($USER_PERMISSION_KEY)){
+        header("Location: /403.php"); /* Redirect browser */
+        exit();
+    }      
+?>
+
 <div class="container-fruid">
+    <h2><?php t_('Organizations');?></h2>
     <?php        
         $organizationController = new MyOrganization($configs);
         $arr = $organizationController->get_list();   
