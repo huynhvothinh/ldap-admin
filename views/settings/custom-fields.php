@@ -69,7 +69,7 @@ if(getPost('save')){
 $arr = $settingController->custom_fields->get_list($base_dn, $type);
 ?>
 
-<div class="container container-fruid custom-fields">
+<div class="container custom-fields">
     <h5><?php t_('Add field');?></h5>
     <form action="/views/settings/custom-fields.php?type=<?php echo $type;?>" method="POST">
 

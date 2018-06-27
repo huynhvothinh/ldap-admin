@@ -11,7 +11,7 @@ $configs = $_SESSION['config'];
 ?>
 
 
-<div class="container-fruid">
+<div class="container">
     <?php        
         $userController = new MyUser($configs);
         $item = $userController->get_item(getGet('item_key'));      

@@ -73,10 +73,35 @@ class MyLdap{
             return NULL;
         }
     }
-    function update($item_key, $entry){ 
+    function update($dn, $entry){ 
         if($this->auth()) {
             try{
-                $result = ldap_modify($this->ldapconn, $item_key, $entry); 
+                $result = ldap_modify($this->ldapconn, $dn, $entry); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
+    function add($dn, $entry){ 
+        if($this->auth()) {
+            try{
+                $result = ldap_add($this->ldapconn, $dn, $entry); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
+    function change_password($dn, $password){
+        if($this->auth()) {
+            try{
+                $entry = array('userpassword' => "{MD5}".base64_encode(pack("H*",md5($password)))); 
+                $result = ldap_mod_replace($this->ldapconn, $dn, $entry); 
                 return $result;
             }catch(Exception $ex){
                 return false;

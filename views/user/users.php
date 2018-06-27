@@ -10,7 +10,7 @@ $configs = $_SESSION['config'];
     }      
 ?>
 
-<div class="container-fruid">
+<div class="container">
     <h2><?php t_('Users');?></h2>
     <?php 
         $userController = new MyUser($configs);
@@ -71,6 +71,11 @@ $configs = $_SESSION['config'];
                 <?php  } // end if ?>
 
                 <?php if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){?>
+                |
+                <a href="#" data-href="user-change-pass.php?item_key=<?php echo $uid; ?>" 
+                    data-title="<?php t_('Password');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Password');?>
+                </a>
                 |
                 <a href="#" data-href="user-delete.php?item_key=<?php echo $uid; ?>" 
                     data-title="<?php t_('Delete user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    

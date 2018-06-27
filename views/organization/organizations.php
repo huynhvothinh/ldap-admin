@@ -10,7 +10,7 @@ $configs = $_SESSION['config'];
     }      
 ?>
 
-<div class="container-fruid">
+<div class="container">
     <h2><?php t_('Organizations');?></h2>
     <?php        
         $organizationController = new MyOrganization($configs);

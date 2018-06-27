@@ -3,7 +3,7 @@ include '../../header.php';
 $configs = $_SESSION['config'];         
 ?>
 
-<div class="container-fruid settings">
+<div class="container settings">
     <h2><?php t_('Settings');?></h2> 
     
     <table class="table table-striped">

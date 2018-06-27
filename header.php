@@ -42,7 +42,7 @@ require_once('include.php');
     $user = $userController->get_item($configs['admin_username']);    
     $USER_PERMISSION_KEY = $PERMISSION_CONTROLLER->get_user_permission($configs['base_dn'], $user); 
 ?>
-<div class="container-fruid"> 
+<div class="container"> 
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -87,13 +87,15 @@ require_once('include.php');
     </div>
   </nav> 
 </div>
-<div class="basedn">
-    <?php
-    {
-      echo t_('Base DN: ');
-      echo $configs['base_dn'];
-    }
-    ?>
+<div class="container">
+    <div class="basedn">
+      <?php
+      {
+        echo t_('Base DN: ');
+        echo $configs['base_dn'];
+      }
+      ?>
+    </div>
 </div>
 <?php
   } // end if

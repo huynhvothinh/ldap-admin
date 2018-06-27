@@ -10,7 +10,7 @@ include 'header.php';
     $ldap_item = $userController->get_item($user_key);    
 ?>    
 
-<div class="container-fruid">
+<div class="container">
     <h2>My account</h2>
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <ul class="nav">

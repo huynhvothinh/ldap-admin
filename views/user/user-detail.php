@@ -1,19 +1,21 @@
 <?php
 include '../../header-blank.php'; 
 $configs = $_SESSION['config']; 
+$user_key = getGet('item_key');
 ?>
 
 <?php
     if(!$PERMISSION_CONTROLLER->check_admin($USER_PERMISSION_KEY)){
-        header("Location: /403.php"); /* Redirect browser */
-        exit();
+        if($user_key != $configs['admin_username']){
+            header("Location: /403.php"); /* Redirect browser */
+            exit();
+        }
     }      
 ?>
 
-<div class="container-fruid">
+<div class="container">
     <?php        
         $userController = new MyUser($configs);
-        $user_key = getGet('item_key');
         $ldap_item = $userController->get_item($user_key);      
     ?>    
     <?php if($ldap_item){ ?>

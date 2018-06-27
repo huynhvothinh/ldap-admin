@@ -1,12 +1,22 @@
 <?php
 include '../../header-blank.php'; 
 $configs = $_SESSION['config']; 
+$user_key = getGet('item_key');
 ?>
 
-<div class="container-fruid"> 
+<?php
+    if(!$PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){
+        if($user_key != $configs['admin_username']){
+            header("Location: /403.php"); /* Redirect browser */
+            exit();
+        }
+    }      
+?>
+
+<div class="container"> 
     <?php
         $userController = new MyUser($configs);
-        $item = $userController->get_item(getGet('item_key'));        
+        $item = $userController->get_item($user_key);        
     ?>    
     <?php if($item){ ?> 
     <table class="table table-striped"> 

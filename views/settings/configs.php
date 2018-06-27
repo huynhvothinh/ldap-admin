@@ -22,7 +22,7 @@ if(getPost('form_submitted') != NULL){
 }
 ?>
 
-<div class="container-fruid settings">  
+<div class="container settings">  
     
     <form action="/views/settings/configs.php" method="post" id="settings"> 
 

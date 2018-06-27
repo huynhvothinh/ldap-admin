@@ -10,7 +10,7 @@ $configs = $_SESSION['config'];
     }      
 ?>
 
-<div class="container-fruid">
+<div class="container">
     <h2><?php t_('Groups');?></h2>
     <?php
         $groupController = new MyGroup($configs);
