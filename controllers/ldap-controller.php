@@ -97,6 +97,18 @@ class MyLdap{
             return NULL;
         }
     }
+    function delete($dn){ 
+        if($this->auth()) {
+            try{
+                $result = ldap_delete($this->ldapconn, $dn); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
     function change_password($dn, $password){
         if($this->auth()) {
             try{

@@ -35,6 +35,10 @@
 
         jQuery('.close-modal').click(function(){
             jQuery('#group-detail-iframe').attr('src', '');
+            
+            if(jQuery(this).attr('data-reload') == '1'){
+                location.reload();
+            }
         });
     });
 </script>

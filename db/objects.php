@@ -69,20 +69,5 @@ class MyObjectsDB{
             }
         }
     }
-
-    function delete($field_id){
-        if($this->db->connect()){
-            if($field_id){ 
-                $sql = "call fields_delete('%s');";
-                $sql = sprintf($sql, 
-                    $field_id
-                );
-                
-                mysqli_query($this->db->conn, $sql);  
-
-                $this->db->conn->close();
-            }
-        }
-    }
 }
 ?>

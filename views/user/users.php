@@ -97,6 +97,17 @@ $configs = $_SESSION['config'];
 include '../../popup.php'; 
 ?>
 
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.group-detail-toggle').click(function(){  
+            var url = jQuery(this).attr('data-href');
+            if(url.indexOf('user-edit') != -1 || url.indexOf('user-delete') != -1 || url.indexOf('user-add') != -1){                 
+                jQuery('.close-modal').attr('data-reload', '1');
+            }
+        });            
+    });
+</script>
+
 <?php
 include '../../footer.php';
 ?>

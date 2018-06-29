@@ -9,27 +9,68 @@ $configs = $_SESSION['config'];
         exit();
     }      
 ?>
+<?php
+    $user_key = getGet('item_key');   
+    $userController = new MyUser($configs);
+    $ldap_item = $userController->get_item(getGet('item_key')); 
 
+    $key = '';
+    $arr = (array)$ldap_item; 
+    if($ldap_item){ 
+        $key = $arr['distinguishedname'][0];
+    }
+    
+    $message = '';
+    $status = false;
+    if(getPost('form_submitted') != NULL){   
+        $dn = $key;
+        $status = $userController->ldap->delete($dn);
+        if($status){
+            $userObject = $userController->user_object->get_item($configs['base_dn'], $user_key, 'USER'); 
+            if($userObject){
+                // update custom data
+                $userObject['ACTIVE'] = 0;
+                $userController->user_object->edit($userObject);
+            }
+            $message = 'Successfully';
+        }else{
+            $message = 'Failed';
+        }
+    }
+?>
 
 <div class="container">
-    <?php        
-        $userController = new MyUser($configs);
-        $item = $userController->get_item(getGet('item_key'));      
-    ?>    
-    <?php if($item){ ?>
-    <?php
-        $arr = (array)$item; 
-    ?>
-    <table class="table table-striped"> 
-        <tbody> 
-            <tr>
-                <td><strong><?php t_( $userController->user_id_key);?></strong></td>
-                <td><?php echoArr($arr[$userController->user_id_key]);?></td> 
-            </tr>    
-        </tbody>
-    </table>
-    <?php } // end if?> 
+    <form action="/views/user/user-delete.php?item_key=<?php echo $user_key;?>" method="post"> 
+        <input type="hidden" value="1" name="form_submitted">
+
+        <?php if($message){?>
+        <p class="alert alert-warning"><?php t_($message);?></p>
+        <?php } ?>   
+
+        <table class="table table-striped"> 
+            <tbody> 
+                <tr>
+                    <td><strong><?php t_('distinguishedname');?></strong></td>
+                    <td><?php echoArr($key);?></td> 
+                </tr>    
+            </tbody>
+        </table> 
+
+        <?php if(!$status){?>
+        <div class="form-group">
+            <button id="deleteBtn" type="button" class="btn btn-primary">Delete</button>
+        </div>
+        <?php }// end if?>
+    </form>
 </div>
+
+<script>
+    jQuery('#deleteBtn').click(function(){
+        if(confirm('<?php t_('Do you want to delete?');?>')){
+            jQuery(this).closest('form').submit();
+        } 
+    });
+</script>
 
 <?php
 include '../../footer-blank.php';
