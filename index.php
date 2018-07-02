@@ -87,6 +87,17 @@ include 'header.php';
 include 'popup.php';
 ?>
 
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.group-detail-toggle').click(function(){  
+            var url = jQuery(this).attr('data-href');
+            if(url.indexOf('user-edit') != -1){                 
+                jQuery('.close-modal').attr('data-reload', '1');
+            }
+        });            
+    });
+</script>
+
 <?php
 include 'footer.php';
 ?>

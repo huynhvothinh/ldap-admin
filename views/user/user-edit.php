@@ -41,21 +41,18 @@ if(getPost('form_submitted') != NULL){
         // update back to ldap
         $ldapItem = $userController->get_item($user_key);
         if($ldapItem){
-            $dn = $ldapItem['distinguishedname'][0];
-            
-            $entry = array();
-            $entry['objectclass'][0] = "top";
-            $entry['objectclass'][1] = "person";
-            $entry['objectclass'][2] = "organizationalPerson";
-            $entry['objectclass'][3] = "user";
+            if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){
+                $dn = $ldapItem['distinguishedname'][0];                
+                $entry = array(); 
 
-            for($i=0;$i<count($memberof);$i++){
-                $entry['memberof'][$i] = $memberof[$i];
-            } 
-            $status = $userController->ldap->update($dn, $entry);
+                for($i=0;$i<count($memberof);$i++){
+                    $entry['memberof'][$i] = $memberof[$i];
+                } 
+                $status = $userController->ldap->update($dn, $entry);
+                $userObject['AD_DATA'] = json_encode($ldapItem);
+            }
             
             // update custom data
-            $userObject['AD_DATA'] = json_encode($ldapItem);
             $userObject['CUSTOM_DATA'] = json_encode($custom_data);
             $userController->user_object->edit($userObject);
         }
@@ -112,52 +109,55 @@ if(getPost('form_submitted') != NULL){
             <?php } // end for ?>
         </div> 
         
-        <div class="row">
-            <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
-                <label for="admin_account_suffix"><?php t_('Account suffix');?></label>
-                <?php  
-                for($i=0; $i<count($suffix_arr); $i++){
-                    $checked = '';                
-                    if($account_suffix){
+        <?php 
+        if($PERMISSION_CONTROLLER->check_super($USER_PERMISSION_KEY)){?>
+            <div class="row">
+                <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
+                    <label for="admin_account_suffix"><?php t_('Account suffix');?></label>
+                    <?php  
+                    for($i=0; $i<count($suffix_arr); $i++){
+                        $checked = '';                
+                        if($account_suffix){
+                            // current select
+                            if($account_suffix == $suffix_arr[$i]){
+                                $checked = 'checked';
+                            }
+                        }else{
+                            // default
+                            if($i == 0){
+                                $checked = 'checked';
+                            }
+                        }
+                    ?> 
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" style="color:gray;" disabled name="admin_account_suffix" <?php echo $checked;?> 
+                                value="<?php echo $suffix_arr[$i]; ?>"> <?php echo $suffix_arr[$i]; ?>
+                        </label>
+                    </div> 
+                    <?php } // end for ?>
+                </div>    
+                <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
+                    <label for="memberof"><?php t_('Groups');?></label>
+                    <?php  
+                    for($i=0; $i<count($memberof_arr); $i++){
+                        $checked = ''; 
+                        $key = $memberof_arr[$i]['distinguishedname'][0]; 
                         // current select
-                        if($account_suffix == $suffix_arr[$i]){
+                        if(in_array($key, $memberof)){
                             $checked = 'checked';
-                        }
-                    }else{
-                        // default
-                        if($i == 0){
-                            $checked = 'checked';
-                        }
-                    }
-                ?> 
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" style="color:gray;" disabled name="admin_account_suffix" <?php echo $checked;?> 
-                            value="<?php echo $suffix_arr[$i]; ?>"> <?php echo $suffix_arr[$i]; ?>
-                    </label>
-                </div> 
-                <?php } // end for ?>
-            </div>    
-            <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
-                <label for="memberof"><?php t_('Groups');?></label>
-                <?php  
-                for($i=0; $i<count($memberof_arr); $i++){
-                    $checked = ''; 
-                    $key = $memberof_arr[$i]['distinguishedname'][0]; 
-                    // current select
-                    if(in_array($key, $memberof)){
-                        $checked = 'checked';
-                    } 
-                ?> 
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="memberof[]" <?php echo $checked;?> 
-                            value="<?php echo $key; ?>"> <?php echo $key; ?>
-                    </label>
-                </div> 
-                <?php } // end for ?>
-            </div>        
-        </div>  
+                        } 
+                    ?> 
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="memberof[]" <?php echo $checked;?> 
+                                value="<?php echo $key; ?>"> <?php echo $key; ?>
+                        </label>
+                    </div> 
+                    <?php } // end for ?>
+                </div>        
+            </div>  
+        <?php } // end if permisison ?>
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>
