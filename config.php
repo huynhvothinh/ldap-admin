@@ -77,7 +77,7 @@ class MyConfig{
         'fields' => [
             'user' => [
                 'list' => ['cn', 'distinguishedname'],
-                'detail' => ['user_key', 'cn', 'distinguishedname'],
+                'detail' => ['user_key', 'cn', 'distinguishedname', 'memberof'],
                 'edit' => ['cn']
             ],
             'group' => [
@@ -89,7 +89,7 @@ class MyConfig{
         ],
 
         // Permissions
-        'super_permission_users' => ['euler']
+        'super_permission_users' => ['euler', 'ldapconnect']
         // 'permissions' => [
         //     'super' => [
         //         'users' => [],

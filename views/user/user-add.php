@@ -22,12 +22,6 @@ $user_key = getPost('user_key');
 $account_suffix = getPost('admin_account_suffix');
 $suffix_arr = $organizationController->get_list_for_suffix();
 
-$memberof = getPost('memberof');
-if(!$memberof){
-    $memberof = array();
-}
-$memberof_arr = $groupController->get_list();
-
 $custom_data = array();
 foreach($fields_arr as $field){
     $custom_data[$field['FIELD_CODE']] = getPost($field['FIELD_CODE']);
@@ -47,10 +41,6 @@ if(getPost('form_submitted') != NULL){
         $entry['objectclass'][1] = "person";
         $entry['objectclass'][2] = "organizationalPerson";
         $entry['objectclass'][3] = "user";
-
-        for($i=0;$i<count($memberof);$i++){
-            $entry['memberof'][$i] = $memberof[$i];
-        }
 
         // add user ldap
         $status = $userController->ldap->add($dn, $entry);
@@ -87,29 +77,15 @@ if(getPost('form_submitted') != NULL){
 
         <input type="hidden" value="1" name="form_submitted">
 
-        <div class="form-group">
-            <label for="user_key"><?php t_('User login name, ex: admin (*)');?></label>
-            <input type="text" class="form-control" name="user_key" 
-                id="user_key" value="<?php echo $user_key; ?>">
-        </div>  
 
         <div class="row">
-            <?php for($i=0;$i<count($fields_arr);$i++){
-                $field_code = $fields_arr[$i]['FIELD_CODE'];
-                $field_name = $fields_arr[$i]['FIELD_NAME'];
-                $field_val = getArrayValue($custom_data, $field_code);
-            ?>
-                <div class="form-group  col-md-6 col-12">
-                    <label for="<?php echo $field_code;?>"><?php t_( $field_name);?></label>
-                    <input type="text" class="form-control" name="<?php echo $field_code;?>" 
-                        id="<?php echo $field_code;?>" value="<?php echo $field_val; ?>">
-                </div> 
-            <?php } // end for ?> 
-        </div> 
-
-        <div class="row">
-            <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
-                <label for="admin_account_suffix"><?php t_('Account suffix');?></label>
+            <div class="form-group col-md-6 col-12">
+                <label for="user_key"><?php t_('User login name, ex: admin (*)');?></label>
+                <input type="text" class="form-control" name="user_key" 
+                    id="user_key" value="<?php echo $user_key; ?>">
+            </div>  
+            <div class="form-group col-md-6 col-12" style="max-height: 200px; overflow-y: scroll;">
+                <label for="admin_account_suffix"><?php t_('Organizations');?></label>
                 <?php  
                 for($i=0; $i<count($suffix_arr); $i++){
                     $checked = '';                
@@ -132,27 +108,22 @@ if(getPost('form_submitted') != NULL){
                     </label>
                 </div> 
                 <?php } // end for ?>
-            </div>    
-            <div class="form-group col-md-6 col-12" style="max-height: 300px; overflow-y: scroll;">
-                <label for="memberof"><?php t_('Groups');?></label>
-                <?php  
-                for($i=0; $i<count($memberof_arr); $i++){
-                    $checked = ''; 
-                    $key = $memberof_arr[$i]['distinguishedname'][0]; 
-                    // current select
-                    if(in_array($key, $memberof)){
-                        $checked = 'checked';
-                    } 
-                ?> 
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="memberof[]" <?php echo $checked;?> 
-                            value="<?php echo $key; ?>"> <?php echo $key; ?>
-                    </label>
-                </div> 
-                <?php } // end for ?>
-            </div>        
+            </div>       
         </div>  
+
+        <div class="row">
+            <?php for($i=0;$i<count($fields_arr);$i++){
+                $field_code = $fields_arr[$i]['FIELD_CODE'];
+                $field_name = $fields_arr[$i]['FIELD_NAME'];
+                $field_val = getArrayValue($custom_data, $field_code);
+            ?>
+                <div class="form-group  col-md-6 col-12">
+                    <label for="<?php echo $field_code;?>"><?php t_( $field_name);?></label>
+                    <input type="text" class="form-control" name="<?php echo $field_code;?>" 
+                        id="<?php echo $field_code;?>" value="<?php echo $field_val; ?>">
+                </div> 
+            <?php } // end for ?> 
+        </div> 
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>

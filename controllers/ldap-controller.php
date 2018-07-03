@@ -109,11 +109,21 @@ class MyLdap{
             return NULL;
         }
     }
-    function change_password($dn, $password){
+    function change_password($dn, $newPassword){
         if($this->auth()) {
             try{
-                $entry = array('userpassword' => "{MD5}".base64_encode(pack("H*",md5($password)))); 
-                $result = ldap_mod_replace($this->ldapconn, $dn, $entry); 
+                $newPassw = '';
+                $newPassword = "\"" . $newPassword . "\"";
+                $len = strlen($newPassword);
+                for ($i = 0; $i < $len; $i++){
+                    $newPassw .= "{$newPassword{$i}}\000";
+                }
+                $newPassword = $newPassw;
+
+                $entry = array(); 
+                $entry["unicodepwd"] = $newPassword;
+
+                $result = ldap_mod_replace($this->ldapconn, $dn, $entry);  
                 return $result;
             }catch(Exception $ex){
                 return false;

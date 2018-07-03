@@ -45,6 +45,11 @@ $user_key = getGet('item_key');
     <form action="/views/user/user-change-pass.php?item_key=<?php echo $user_key;?>" method="post">
         <h3><?php t_('User:');?> <?php echo $user_key;?></h3>
         
+        <p class="alert alert-info">
+            <?php t_('Password length >= 8');?>
+            <br>
+            <?php t_('Password need meet AD policy');?>
+        </p>
         <?php if($message){?>
         <p class="alert alert-warning"><?php t_($message);?></p>
         <?php } ?>    

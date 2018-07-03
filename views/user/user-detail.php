@@ -28,7 +28,7 @@ $user_key = getGet('item_key');
         <table class="table table-striped"> 
             <tbody>
             <?php for($i=0;$i<count($arrKeys);$i++){
-                $val = getArrayValue($arr, $arrKeys[$i]);
+                $val = getArrayValue($arr, $arrKeys[$i], false);
             ?> 
                 <tr>
                     <td><strong><?php t_( $arrKeys[$i]);?></strong></td>
