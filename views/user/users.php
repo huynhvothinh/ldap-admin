@@ -77,6 +77,11 @@ $configs = $_SESSION['config'];
                     <?php t_('Password');?>
                 </a>
                 |
+                <a href="#" data-href="user-change-group.php?item_key=<?php echo $uid; ?>" 
+                    data-title="<?php t_('Group');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
+                    <?php t_('Group');?>
+                </a>
+                |
                 <a href="#" data-href="user-delete.php?item_key=<?php echo $uid; ?>" 
                     data-title="<?php t_('Delete user');?>" data-toggle="modal" data-target="#myModal" class="group-detail-toggle">    
                     <?php t_('Delete');?>

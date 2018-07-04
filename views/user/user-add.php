@@ -77,7 +77,6 @@ if(getPost('form_submitted') != NULL){
 
         <input type="hidden" value="1" name="form_submitted">
 
-
         <div class="row">
             <div class="form-group col-md-6 col-12">
                 <label for="user_key"><?php t_('User login name, ex: admin (*)');?></label>

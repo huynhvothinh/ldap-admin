@@ -29,7 +29,7 @@ class MyGroup{
         return $this->ldap->configs['fields']['group']['list'];
     } 
 
-    function get_item($id){    
+    function get_item($id){
         $filters = '(&(cn=%s)%s)'; 
         $filters = sprintf($filters, $id, $this->ldap->configs['group_filter']); 
         

@@ -85,6 +85,30 @@ class MyLdap{
             return NULL;
         }
     }
+    function add_field($dn, $entry){ 
+        if($this->auth()) {
+            try{
+                $result = ldap_mod_add($this->ldapconn, $dn, $entry); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
+    function del_field($dn, $entry){ 
+        if($this->auth()) {
+            try{
+                $result = ldap_mod_del($this->ldapconn, $dn, $entry); 
+                return $result;
+            }catch(Exception $ex){
+                return false;
+            }
+        }else{
+            return NULL;
+        }
+    }
     function add($dn, $entry){ 
         if($this->auth()) {
             try{

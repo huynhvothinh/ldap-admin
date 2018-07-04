@@ -13,40 +13,42 @@ $item_key = getGet('item_key');
 
 <?php 
 $userController = new MyUser($configs);
-$userArr = $userController->get_list();     
+$userItem = $userController->get_item($item_key);
 
 $groupController = new MyGroup($configs);
-$groupItem = $groupController->get_item($item_key);
+$groupArr = $groupController->get_list();
 
-$memberArr = array();
-if($groupItem && isset($groupItem['member'])){ 
-    for($i=0;$i<count($groupItem['member']) - 1;$i++){
-        array_push($memberArr, $groupItem['member'][$i]);
+$memberOfArr = array();
+if($userItem && isset($userItem['memberof'])){ 
+    for($i=0;$i<count($userItem['memberof']) - 1;$i++){
+        array_push($memberOfArr, $userItem['memberof'][$i]);
     }
 }
 
 $message = '';
 
-if(getPost('add') && getPost('new_member')){
+if(getPost('add') && getPost('new_member_of')){
     $entry = array();
-    $new_member = getPost('new_member');
-    $entry['member'] = $new_member;
-    if($groupController->ldap->add_field($groupItem['distinguishedname'][0], $entry)){
+    $entry['member'] = $userItem['distinguishedname'][0];
+
+    $new_member_of = getPost('new_member_of');
+    if($groupController->ldap->add_field($new_member_of, $entry)){
         $message = 'Successfully';
-        array_push($memberArr, $new_member);
+        array_push($memberOfArr, $new_member_of);
     }else{
         $message = 'Failed';
     }
-}else if(getPost('remove') && getPost('del_member')){
+}else if(getPost('remove') && getPost('del_member_of')){
     $entry = array();
-    $del_member = getPost('del_member');
-    $entry['member'] = $del_member;
-    if($groupController->ldap->del_field($groupItem['distinguishedname'][0], $entry)){
+    $entry['member'] = $userItem['distinguishedname'][0];
+
+    $del_member_of = getPost('del_member_of');
+    if($groupController->ldap->del_field($del_member_of, $entry)){
         $message = 'Successfully';
 
-        for($i=0;$i<count($memberArr);$i++){
-            if($del_member == $memberArr[$i]){
-                unset($memberArr[$i]);
+        for($i=0;$i<count($memberOfArr);$i++){
+            if($del_member_of == $memberOfArr[$i]){
+                unset($memberOfArr[$i]);
             }
         } 
     }else{
@@ -56,20 +58,21 @@ if(getPost('add') && getPost('new_member')){
 ?>
 
 <div class="container">
-    <h3><?php t_('Group');?> <?php echo $groupItem['cn'][0];?></h3>
+    <h3><?php t_('User');?> <?php echo $userItem['cn'][0];?></h3>
     <?php if($message){?>
         <p class="alert alert-warning"><?php t_($message);?></p>
     <?php } //end if?>
 
-    <form action="/views/group/group-change-member.php?item_key=<?php echo $item_key;?>" method="post">
+    <form action="/views/user/user-change-group.php?item_key=<?php echo $item_key;?>" method="post">
         <div class="form-group">
-            <select name="new_member">    
+            <select name="new_member_of">    
             <?php
-                for($index = 0; $index < count($userArr); $index++) {
-                    if(isset($userArr[$index]) && !in_array($userArr[$index]['distinguishedname'][0], $memberArr)){  
+                for($index = 0; $index < count($groupArr); $index++) {
+                    if(isset($groupArr[$index]) && !in_array($groupArr[$index]['distinguishedname'][0], $memberOfArr)){  
+                        $group_key = $groupArr[$index]['distinguishedname'][0];
                     ?>
-                        <option value="<?php echo $userArr[$index]['distinguishedname'][0];?>">
-                            <?php echo $userArr[$index]['distinguishedname'][0];?>
+                        <option value="<?php echo $group_key;?>">
+                            <?php echo $group_key;?>
                         </option>
                     <?php
                     }
@@ -92,20 +95,19 @@ if(getPost('add') && getPost('new_member')){
         <tbody>
         <?php  
             $indexTotal = 0;
-            for($index = 0; $index < count($userArr); $index++) {
-                if(isset($userArr[$index]) && in_array($userArr[$index]['distinguishedname'][0], $memberArr)){                     
-                    $user_id_key = $userController->user_id_key;
-                    $uid = $userArr[$index][$user_id_key][0];
-                    $user_key = $userArr[$index]['distinguishedname'][0];
+            for($index = 0; $index < count($groupArr); $index++) {
+                if(isset($groupArr[$index]) && in_array($groupArr[$index]['distinguishedname'][0], $memberOfArr)){  
+                    $uid = $groupArr[$index]['cn'][0];
+                    $group_key = $groupArr[$index]['distinguishedname'][0];
         ?>
             <tr>
                 <td><?php echo ($indexTotal + 1); ?></td>
                 <td><?php echo $uid; ?></td>
-                <td><?php echo $user_key; ?></td>
+                <td><?php echo $group_key; ?></td>
 
                 <td>      
-                    <form action="/views/group/group-change-member.php?item_key=<?php echo $item_key;?>" method="post">  
-                        <input type="hidden" name="del_member" value="<?php echo $user_key; ?>">
+                    <form action="/views/user/user-change-group.php?item_key=<?php echo $item_key;?>" method="post">  
+                        <input type="hidden" name="del_member_of" value="<?php echo $group_key; ?>">
                         <input type="submit" name="remove" class="btn btn-danger" value="Remove">       
                     </form>
                 </td> 
