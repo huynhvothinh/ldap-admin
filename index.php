@@ -32,6 +32,7 @@ include 'header.php';
         <?php
             $arr = (array)$ldap_item; 
             $arrKeys = $userController->get_fields_detail();
+            $avatarFile = 'uploads/avatar/'.$user_key.'.jpg';
         ?>
 
         <h3><?php t_('AD infomation');?></h3>
@@ -39,8 +40,9 @@ include 'header.php';
             <tbody>
                 <tr>
                     <td><strong><?php t_('Avatar');?></strong></td>
-                    <td><?php if(isset($arr['thumbnailphoto'][0])){
-                        echo $arr['thumbnailphoto'][0];
+                    <td><?php if(file_exists($avatarFile)){
+                        $avatarFile .= '?t='.time();
+                        ?> <img src="/<?php echo $avatarFile; ?>" style="max-height: 200px;"><?php
                     }?></td> 
                 </tr>   
             <?php for($i=0;$i<count($arrKeys);$i++){
@@ -91,7 +93,7 @@ include 'popup.php';
     jQuery(document).ready(function(){
         jQuery('.group-detail-toggle').click(function(){  
             var url = jQuery(this).attr('data-href');
-            if(url.indexOf('user-edit') != -1){                 
+            if(url.indexOf('user-edit') != -1 || url.indexOf('user-change-avatar') != -1){                 
                 jQuery('.close-modal').attr('data-reload', '1');
             }
         });            
