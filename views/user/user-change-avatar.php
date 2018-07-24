@@ -63,7 +63,7 @@ $user_key = getGet('item_key');
         </div> 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary"><?php t_('Save');?></button>
         </div>  
     </form>  
 </div>

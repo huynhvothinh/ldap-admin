@@ -7,12 +7,6 @@ $configs = $_SESSION['config'];
     <h2><?php t_('Settings');?></h2> 
     
     <table class="table table-striped">
-        <thead>
-        <tr>             
-            <th>Setting</th>    
-            <th></th>
-        </tr>
-        </thead>
         <tbody> 
         <tr>
             <td><?php t_('Configs');?></td> 

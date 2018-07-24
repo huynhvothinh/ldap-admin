@@ -73,7 +73,7 @@ require_once('include.php');
           <a class="nav-link" href="/views/settings/settings.php">| <?php t_('Settings');?></a>
         </li> 
         <li class="nav-item">
-          <a class="nav-link" href="#">| <?php t_('Import');?></a>
+          <a class="nav-link" href="/views/settings/import.php">| <?php t_('Import');?></a>
         </li> 
         <li class="nav-item">
           <a class="nav-link" href="#"><?php t_('Export');?></a>

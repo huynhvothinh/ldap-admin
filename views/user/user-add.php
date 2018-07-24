@@ -125,7 +125,7 @@ if(getPost('form_submitted') != NULL){
         </div> 
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary"><?php t_('Save');?></button>
         </div>  
     </form> 
 </div>
